@@ -1,0 +1,727 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: #D8DDE8;
+    background-image: url("pics/admin_topbar_bg.png");
+    background-position: left top;
+    background-repeat: repeat-x;
+    font-family: Arial, Helvetica, Garuda, Sans-serif;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+a,
+a:active,
+a:hover,
+a:visited {
+    text-decoration: none;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.clr {
+    clear: both;
+}
+
+.hidden {
+    display: none;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #CBCBCB;
+}
+
+div.ui-widget-header a.button {
+    font-size: 12px;
+    line-height: 12px;
+}
+
+.red {
+    color: red;
+}
+
+#main {
+    margin: 0 auto;
+    width: 996px;
+}
+
+#topBar {
+    color: white;
+    line-height: 35px;
+}
+
+#topBar a {
+    font-size: 12px;
+}
+
+#topBar .button {
+    height: 27px;
+}
+
+#footer {
+    height: 20px;
+    line-height: 20px;
+    width: 100%;
+    color: #848484;
+    text-shadow: 0 1px 0 #FFFFFF;
+    padding-top: 5px;
+}
+
+#footer a {
+    color: #848484;
+}
+
+#footer .copy {
+    background-image: url("../favicon.png");
+    background-position: left top;
+    background-repeat: no-repeat;
+    height: 16px;
+    line-height: 16px;
+    margin-left: 5px;
+    margin-right: 10px;
+    padding-left: 20px;
+}
+
+.spacer {
+    width: 20px;
+}
+
+#tabContent {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-width: 0;
+    border-style: none;
+    width: 100%;
+    min-width: 900px;
+    margin: 0 auto;
+}
+
+#tabContent tr,
+#tabContent td {
+    border-style: none;
+    vertical-align: top;
+}
+
+#infoBox {
+    padding: 0;
+}
+
+#infoBox .frame {
+    margin-left: 40px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+#infoBox .frame a {
+    color: orange;
+}
+
+#infoBox .frame span {
+    margin-right: .3em;
+}
+
+#content {
+    box-shadow: -5px 5px 10px grey;
+    background-color: white;
+    padding: 0;
+}
+
+#content .cnt.show table {
+    border-spacing: 5px;
+}
+
+#content .cnt.show table tr td:first-child {
+    text-align: right;
+    font-weight: bold;
+}
+
+#content .cnt {
+    padding: 10px;
+    padding-bottom: 30px;
+    min-height: 421px;
+}
+
+#content .top {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0 5px;
+}
+
+#content .top .nfo {
+    border-radius: 0 0 5px 5px;
+    height: 20px;
+    padding: 0 5px;
+    padding-bottom: 2px;
+    line-height: 20px;
+}
+
+#content .headerMiniForm {
+    border: none;
+    border-radius: 0 0 5px 5px;
+    margin-right: 10px;
+    padding: 0 5px;
+    padding-bottom: 2px;
+    text-align: center;
+}
+
+#content .headerMiniForm form input {
+    padding: 0 5px;
+}
+
+#sidebar {
+    padding: 10px 0;
+    padding-top: 50px;
+    height: 500px;
+    width: 175px;
+}
+
+#sidebar ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#sidebar ul.listFirst > li a {
+    background-color: #F6F8FB;
+    display: block;
+    border-bottom: 1px solid #DBE4EF;
+    border-right: 1px solid #DBE4EF;
+    height: 30px;
+    z-index: 9999;
+    line-height: 30px;
+    padding-left: 20px;
+    color: #8D8D8D;
+    font-size: 14px;
+}
+
+#sidebar ul.listFirst > li:first-child > a {
+    border-top: 1px solid #DBE4EF;
+}
+
+#sidebar ul.listFirst > li.active > a,
+#sidebar ul.listSecond > li.active > a {
+    background-color: white;
+    font-weight: bold;
+}
+
+#sidebar ul.listSecond > li a {
+    border-bottom: 1px solid #DBE4EF;
+    border-right: 1px solid #DBE4EF;
+    display: block;
+    font-size: 11px;
+    height: 20px;
+    line-height: 20px;
+    padding-left: 30px;
+    width: 120px;
+}
+
+#listItems .lock {
+    font-size: 11px !important;
+}
+
+#listItems .unblocked a {
+    font-weight: normal;
+}
+
+#listItems .blocked {
+    color: grey;
+    font-weight: normal;
+}
+
+#listItems .itemRight {
+    line-height: 13px;
+    padding: 0 10px;
+    text-align: right;
+}
+
+#listItems .itemRight img {
+    padding-top: 3px;
+}
+
+#listItems .itemRight span {
+    font-size: 11px !important;
+}
+
+#content .cnt form #tabs {
+    margin: 10px 0;
+}
+
+#content .cnt form input[type="text"],
+#content .cnt form input[type="email"],
+#content .cnt form input[type="file"],
+#content .cnt form select,
+#content .cnt form input[type="password"] {
+    width: 300px;
+    padding: 1px 5px;
+    margin-left: 5px;
+    margin-top: 1px;
+}
+
+#content .cnt form select {
+    padding-right: 1px;
+    width: 312px;
+}
+
+#content .cnt form label {
+    font-size: 12px;
+}
+
+#content .cnt form .formPos {
+    padding: 5px 0;
+}
+
+#content .cnt form .formPos img {
+    height: 100px;
+}
+
+#content .cnt form .error {
+    margin-left: 10px;
+    margin-top: 1px;
+    padding: 2px 5px;
+    font-size: 12px;
+}
+
+#content .cnt form .formPos.textarea .error {
+    margin-top: 10px;
+    margin-left: 0;
+}
+
+#content .cnt form fieldset {
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+}
+
+#content .cnt form legend {
+    font-weight: bold;
+}
+
+#content .cnt form #changePass {
+    font-size: 12px;
+    color: darkorange;
+}
+
+#content .cnt form .button {
+    height: 31px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+#content .cnt h3.separator {
+    background-color: orange;
+    font-weight: bold;
+    padding: 5px;
+    margin: 10px 0;
+}
+
+#content .filter form select,
+#content .filter form input {
+    border: none;
+    background-color: lightgoldenrodyellow;
+    cursor: pointer;
+}
+
+#content .cnt .userContact {
+    background-color: lightgoldenrodyellow;
+    border: 1px solid orange;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.cke_skin_kama .cke_wrapper {
+    background-image: none !important;
+}
+
+#listItems {
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+#listItems .thumb img {
+    height: 20px;
+    margin-left: 5px;
+    margin-top: 4px;
+}
+
+#listItems .content br {
+    height: 40px;
+}
+
+#listItems .content {
+    margin-left: 10px;
+}
+
+#listItems li div.ui-state-default {
+    height: 30px;
+    line-height: 18px;
+    font-size: 14px;
+}
+
+#listItems span.main {
+    font-size: 14px !important;
+}
+
+#listItems span {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+#listItems .controls {
+    border-left: 1px dotted;
+    padding: 0 10px;
+    text-align: center;
+    font-weight: normal;
+    line-height: 14px;
+    height: 30px;
+}
+
+#listItems .controls a {
+    font-size: 11px;
+}
+
+#listItems span.titleOnly {
+    line-height: 30px !important;
+}
+
+#listItems .desc {
+    line-height: 10px;
+    font-weight: normal;
+    font-size: 10px;
+}
+
+#catSubs li {
+    margin-left: 30px;
+}
+
+.cnt ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.crumbs {
+    padding: 5px 10px;
+}
+
+.crumbs a,
+.crumbs a:active,
+.crumbs a:hover,
+.crumbs a:visited {
+    background-image: url('pics/crumb-deli.png');
+    background-repeat: no-repeat;
+    background-position: center right;
+    color: #848484;
+    margin-right: 5px;
+    padding-right: 10px;
+    text-shadow: 0 1px 0 white;
+}
+
+.crumbs a:last-child {
+    background: none;
+}
+
+.draghandle {
+    background: url('pics/drag_icon.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    border-right: 1px dotted;
+    cursor: move;
+    height: 30px;
+    width: 30px;
+}
+
+.gameInfo {
+    height: 100px;
+    margin: 10px;
+    margin-bottom: 0;
+    padding: 10px;
+}
+
+#admin_login.cnt form input[type="email"],
+#admin_login.cnt form input[type="text"],
+#admin_login.cnt form input[type="password"],
+#admin_login.cnt form textarea {
+    border-color: darkred;
+    border-style: solid;
+    border-width: 1px;
+    margin: 10px 15px 5px 15px;
+    padding: 1px 5px;
+    width: 300px;
+}
+
+#admin_login.cnt form input[type="email"]:focus,
+#admin_login.cnt form input[type="text"]:focus,
+#admin_login.cnt form input[type="password"]:focus,
+#admin_login.cnt form textarea:focus {
+    border-color: darkgreen;
+}
+
+#admin_login.cnt form input[type="text"].required,
+#admin_login.cnt form input[type="email"].required,
+#admin_login.cnt form input[type="password"].required {
+    background-image: url("pics/exclamation-small-red.png");
+    background-position: right top;
+    background-repeat: no-repeat;
+}
+
+.pagination .current a {
+    color: darkred;
+}
+
+.drawCounter,
+.serverStatus {
+    background-position: left;
+    background-repeat: no-repeat;
+    line-height: 20px;
+    margin-left: 5px;
+    padding-left: 20px;
+}
+
+.drawCounter {
+    background-image: url('pics/printer--arrow.png');
+}
+
+.serverStatus.ok {
+    background-image: url('pics/lightbulb-icon.png');
+}
+
+.serverStatus.fail {
+    background-image: url('pics/lightbulb-off-icon.png');
+}
+
+#listItems .ui-state-highlight {
+    border-radius: 5px;
+    border-style: dotted !important;
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+#listItems div.item {
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+#chartDiv {
+    height: 200px;
+}
+
+#adminCouponsToPrint,
+#adminTransferOrders {
+    width: 30%;
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin: 9px;
+}
+
+#adminCouponsToPrint a,
+#adminTransferOrders a {
+    display: block;
+    color: black;
+}
+
+#adminCouponsToPrint .header,
+#adminTransferOrders .header {
+    border: none;
+    border-bottom: 1px solid grey;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+#adminTransferOrders .header a {
+    color: inherit;
+}
+
+#adminCouponsToPrint .pos,
+#adminTransferOrders .pos {
+    padding: 5px;
+}
+
+#adminCouponsToPrint .pos.row1,
+#adminTransferOrders .pos.row1 {
+    background-color: #DDDDDD;
+}
+
+#adminCouponsToPrint .pos.row2,
+#adminTransferOrders .pos.row2 {
+    background-color: #F5F5F5;
+}
+
+#adminCouponsToPrint .pos.row1:hover,
+#adminCouponsToPrint .pos.row2:hover {
+    background-color: lightsalmon;
+}
+
+h1.ui-widget-header,
+div.ui-widget-header,
+.nfo.ui-widget-header {
+    border: none !important;
+    margin: 0;
+    padding: 5px;
+}
+
+div.ui-widget-header.main {
+    height: 30px;
+}
+
+div.ui-widget-header.main span.header {
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.cnt.ui-widget-content {
+    border: none !important;
+}
+
+.edit-img {
+    background: url('pics/pencil.png') no-repeat;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.edit-img1 {
+    background: url('pics/pencil.png') no-repeat;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+    right: 24px;
+    position: absolute;
+    top: 1px;
+    opacity: 0.25;
+}
+
+.edit-img1:hover {
+    opacity: 1;
+}
+
+input.disabled {
+    color: #CECACA !important;
+}
+
+/* --- jQuery UI changes --- */
+#listItems li.ui-state-highlight {
+    padding: 0;
+}
+
+.ui-state-error,
+.ui-state-highlight {
+    padding: 10px;
+}
+
+.ui-progressbar {
+    height: 22px !important;
+}
+
+.ui-progressbar-value {
+    background-image: url('js/images/pbar-ani.gif') !important;
+}
+
+.ui-autocomplete-loading {
+    background: white url('pics/ui-anim_basic_16x16.gif') right center no-repeat;
+}
+
+.top_tabs {
+    /*	margin-top: -5px;*/
+    /*	margin-right: -3px;*/
+}
+/*
+.top_tabs a.tab {
+        color: white;
+        padding: 2px 5px;
+        margin-left: -4px;
+        border-top: none;
+        border-right: none;
+        outline: none;
+        font-weight: normal;
+}
+
+.top_tabs a.tab:hover,
+.top_tabs a.tab.active {
+        color: #8D8D8D;
+}*/
+
+.cnt .block {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    padding: 20px;
+    position: relative;
+}
+
+.cnt .block .photo_pop img {
+    max-height: 66px;
+    vertical-align: middle;
+    width: 80px;
+}
+
+.cnt .block a.delete,
+.cnt .block a.edit {
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    background-position: top right;
+    display: block;
+    position: absolute;
+    top: 0;
+    opacity: 0.25;
+}
+
+.cnt .block a.delete:hover,
+.cnt .block a.edit:hover {
+    opacity: 1;
+}
+
+.cnt .block a.delete {
+    background: url("pics/image--minus.png");
+    right: 3px;
+}
+
+.cnt .block a.edit {
+    background: url("pics/image--pencil.png");
+    right: 23px;
+}
+
+.cnt select optgroup option {
+    padding-left: 10px;
+}
+
+.cnt #listItems .control_buttons {
+    height: 30px;
+    margin-right: -4px;
+    margin-top: -1px;
+    width: 98px;
+}
+
+.cnt #listItems .control_buttons a {
+    border-left-style: dotted;
+    height: 30px;
+}
+
+.cnt #listItems .control_buttons a.edit {
+    border-radius: 0;
+    border-right: 0;
+}
+
+.ui-widget {
+    font-size: 13px;
+}
+
+#topBar .top_buttons {
+    line-height: 0;
+    padding-top: 3px;
+}
