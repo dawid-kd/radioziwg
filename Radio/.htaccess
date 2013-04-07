@@ -1,8 +1,0 @@
-RewriteEngine on
-RewriteRule ^(system|\.svn) index.php/$1 [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php/$1 [QSA,L]
-
-# tymczasowo na okres prac deweloperskich
-RewriteCond $1 !^(_demo)
