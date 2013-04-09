@@ -1,0 +1,154 @@
+create database RADIO_SYSTEM DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+use RADIO_SYSTEM;
+
+create table website
+(
+  id int auto_increment primary key,
+	website_name varchar(1000) not null,
+	link varchar(3000) not null,
+	description varchar(500)
+);
+
+create table competition
+(
+	id int auto_increment primary key,
+	competition_name varchar(100),
+	description varchar(2000),
+	start_date datetime,
+	end_date datetime,
+	question varchar(300),
+	current varchar(1) check (current='T' or current='N')
+);
+
+create table answer
+(
+	id int auto_increment primary key,
+	answer varchar(3000) not null,
+	id_user int not null,
+	id_competition int not null references competition.id
+);
+
+create table user
+(
+	id int auto_increment primary key,
+	user_name varchar(50) not null,
+	user_surname varchar(50) not null,
+	login varchar(30) not null unique,
+	password varchar(200) not null,
+	email1 varchar(50) not null unique,
+	email2 varchar(50) not null,
+	street varchar(50) not null,
+	post_code varchar(6) not null,
+	city varchar(100) not null,
+	phone_number varchar(12),
+	user_type varchar(1) check (user_type='A' or user_type='U')
+);
+
+create table survey
+(
+	id int auto_increment primary key,
+	survey_name varchar(100) not null,
+	question varchar(300) not null,
+	current varchar(1) check (current='T' or current='N')
+);
+
+create table options
+(
+	id int auto_increment primary key,
+	id_survey int not null references survey.id,
+	option_name varchar(100) not null,
+	option_count int not null
+);
+
+create table users_option
+(
+	id int auto_increment primary key,
+	id_user int not null references user.id,
+	id_survey int not null references survey.id,
+	id_option int not null references option.id
+);
+
+create table comment 
+(
+	id int auto_increment primary key,
+	id_user int not null references user.id,
+	id_survey int not null references survey.id,
+	comment varchar(10000)
+);
+
+create table radio
+(
+	id int auto_increment primary key,
+	radio_name varchar(50) not null unique
+);
+
+create table music_genre
+(
+	id int auto_increment primary key,
+	name_genre varchar(50) not null unique
+);
+
+create table radio_genre
+(
+	id int auto_increment primary key,
+	id_radio int not null references radio.id,
+	id_genre int not null references music_genre.id
+);
+
+create table artist
+(
+	id int auto_increment primary key,
+	artist_name varchar(100) not null,
+	artist_surname varchar(100)
+);
+
+create table album
+(
+	id int auto_increment primary key,
+	album_name varchar(100)
+);
+
+create table song
+(
+	id int auto_increment primary key,
+	id_album int references album.id,
+	id_artist int references artist.id,
+	song_name varchar(200) not null
+);
+
+create table song_genre
+(
+	id int auto_increment primary key,
+	id_genre int not null references music_genre.id,
+	id_song int not null references song.id
+);
+
+create table best_song
+(
+	id int auto_increment primary key,
+	id_song int not null references song.id,
+	month varchar(30) not null
+);
+
+create table vote
+(
+	id int auto_increment primary key,
+	vote_name varchar(100) not null unique,
+	description varchar(1000)
+);
+
+create table song_vote
+(
+	id int auto_increment primary key,
+	id_vote int not null references vote.id,
+	id_song int not null references song.id,
+	votes_count int not null
+);
+
+create table users_vote
+(
+	id int auto_increment primary key,
+	id_vote int not null references vote.id,
+	id_song int not null references song.id,
+	id_user int not null references user.id
+);
