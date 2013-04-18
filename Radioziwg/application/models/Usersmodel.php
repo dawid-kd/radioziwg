@@ -103,7 +103,7 @@ public function getAlert()
     
  public function isAdmin()
     {
-        //$this->isAdmin = intval($this->session->userdata('isAdmin'));
+        $this->isAdmin = intval($this->session->userdata('isAdmin'));
 
         if ($this->isAdmin == 1)
         {
@@ -165,7 +165,8 @@ public function getAlert()
     $this->db->from('user');
     $this->db->where('id', $id);
     $query = $this->db->get();
-    return $query->result();
+    $rows = $query->result();
+    return empty($rows)?null:$rows[0];
     }
 }
 /*
