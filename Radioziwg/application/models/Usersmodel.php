@@ -168,6 +168,29 @@ public function getAlert()
     $rows = $query->result();
     return empty($rows)?null:$rows[0];
     }
+    
+    public function getAll()
+    {
+        $query = $this->db->get('user');
+        
+        return $query->result_array();
+    }
+    
+    # function like getData(), but returning data as an array
+    public function getOne($iId)
+    {
+        $this->db->from('user');
+        $this->db->where('id', $iId);
+        $query = $this->db->get();
+        
+        return $query->row_array();
+    }
+    
+    public function deleteUser($iId)
+    {
+        $this->db->where('id', $iId);
+        $this->db->delete('user');
+    }
 }
 /*
  * To change this template, choose Tools | Templates
