@@ -1,4 +1,4 @@
-<h3>Edit</h3>
+<h3>Edycja</h3>
 
 <?php if ($sMsg) : ?>
 <h4 class="text-success"><?php echo $sMsg ?></h4>

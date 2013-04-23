@@ -183,7 +183,10 @@ public function getAlert()
         $this->db->where('id', $iId);
         $query = $this->db->get();
         
-        return $query->row_array();
+        if ($query->num_rows > 0) {
+            return $query->row_array();
+        }
+        return false;
     }
     
     public function deleteUser($iId)

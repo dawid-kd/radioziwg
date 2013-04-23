@@ -9,6 +9,6 @@
 </div>
 
 
-<div class="span8">
+<div class="span9">
     <?php $this->load->view($viewContent) ?>
 </div>

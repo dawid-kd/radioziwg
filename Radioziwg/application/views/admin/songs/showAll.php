@@ -1,16 +1,16 @@
-<h3>User list</h3>
+<h3>Song list</h3>
 
     <table class="table table-hover">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>First name</th>
-                <th>Surname</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
                 <th>E-mail</th>    
-                <th>Street</th>    
-                <th>Postcode</th>    
-                <th>City</th>
-                <th colspan="2">Functions</th>
+                <th>Ulica</th>    
+                <th>Kod pocztowy</th>    
+                <th>Miejscowość</th>
+                <th colspan="2">Funkcje</th>
             </tr>
         </thead>
 

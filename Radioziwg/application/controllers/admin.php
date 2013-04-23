@@ -8,11 +8,13 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Usersmodel');
+        $this->load->model('Musicmodel');
         
         # Left menu
         $this->aMenu = array(
-            'Users'   => 'admin/users_showAll',
-            'Songs'        => 'admin/songs_showAll',
+            'Users'         => 'admin/users_showAll',
+            'Albums'        => 'admin/albums_showAll',
+            'Songs'         => 'admin/songs_showAll',
             'Artists'       => 'admin/artists_showAll',
             
         );
@@ -135,7 +137,7 @@ class Admin extends CI_Controller
         
     }
     
-    public function users_delete($iId)
+    public function users_delete()
     {
         $data['mainContent'] = 'admin/index';
         $data['viewContent'] = 'admin/users/delete';
@@ -143,12 +145,94 @@ class Admin extends CI_Controller
         $data['aMenu'] = $this->aMenu;
         
         if ($this->input->post('id')) {
-            
+            $iId = $this->input->post('id');
             $this->Usersmodel->deleteUser($iId);
-            $data['sMsg'] = 'User deleted';
+            $data['sMsg'] = '<p class="text-success">User deleted</p>';
             
         } else {
-            $data['sMsg'] = 'Error';
+            $data['sMsg'] = '<p class="text-error">Error</p>';
+        }
+        
+        $this->load->view('templates/main', $data);
+    }
+    
+    public function albums_showAll()
+    {
+        
+        $data['mainContent'] = 'admin/index';
+        $data['viewContent'] = 'admin/albums/showAll';
+        
+        $data['aMenu'] = $this->aMenu;
+        
+        # get all register users
+        $data['aList'] = $this->Musicmodel->getAll('album');
+        
+        $this->load->view('templates/main', $data);
+        
+    }
+    
+    public function albums_edit($iId)
+    {
+        # redirect to base location if ID < 0
+        if (!$iId || $iId < 0) {
+            redirect('admin/albums_showAll');
+        }
+        
+        $data['mainContent'] = 'admin/index';
+        $data['viewContent'] = 'admin/albums/edit';
+        
+        $data['aMenu'] = $this->aMenu;
+        $data['sMsg'] = false;
+        
+        # get record by id. if false -> redirect to base location
+        if (! $data['aOne'] = $this->Musicmodel->getOne('album',$iId)) {
+            redirect('admin/albums_showAll');
+        }
+        
+        # If form is submitted
+        if ($this->input->post('bProceed')) {
+            # set rules for form validation class
+            $aFormConfig = array(
+                array(
+                    'field' => 'album_name',
+                    'label' => 'album_name',
+                    'rules' => 'trim|xss_clean|required'
+                )
+            );
+
+            $this->form_validation->set_rules($aFormConfig);
+            
+            if ($this->form_validation->run()) {
+                # get all data from form fields
+                $aData = array();
+                foreach ($data['aOne'] as $key => $val) {
+                    $aData[$key] = $this->input->post($key);
+                }
+                # update user data
+                $this->Musicmodel->setData('album',$aData);
+                
+                $data['sMsg'] = 'Changes saved';
+            }
+        }
+        
+        $this->load->view('templates/main', $data);
+        
+    }
+    
+    public function albums_delete()
+    {
+        $data['mainContent'] = 'admin/index';
+        $data['viewContent'] = 'admin/albums/delete';
+        
+        $data['aMenu'] = $this->aMenu;
+        
+        if ($this->input->post('id')) {
+            $iId = $this->input->post('id');
+            $this->Musicmodel->deleteOne('album',$iId);
+            $data['sMsg'] = '<p class="text-success">Album deleted</p>';
+            
+        } else {
+            $data['sMsg'] = '<p class="text-error">Error</p>';
         }
         
         $this->load->view('templates/main', $data);
@@ -157,7 +241,15 @@ class Admin extends CI_Controller
     public function songs_showAll()
     {
         
+        $data['mainContent'] = 'admin/index';
+        $data['viewContent'] = 'admin/songs/showAll';
         
+        $data['aMenu'] = $this->aMenu;
+        
+        # get all register users
+        $data['aUsers'] = $this->Musicmodel->getAll();
+        
+        $this->load->view('templates/main', $data);
         
     }
     
