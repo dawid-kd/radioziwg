@@ -1,4 +1,7 @@
-<h3>Album list</h3>
+
+    <h3 class="pushLeft">Album list</h3>
+    <a href="<?php echo base_url().'admin/albums_add' ?>" class="pushRight btn">add new record</a>
+
 
     <table class="table table-hover">
         <thead>

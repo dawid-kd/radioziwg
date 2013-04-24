@@ -3,6 +3,12 @@
 class Musicmodel extends CI_Model
 {
     
+    public function getColumns($sTableName)
+    {
+        return $fields = $this->db->list_fields($sTableName);
+    }
+    
+    
     public function getAll($sTableName)
     {
         $query = $this->db->get($sTableName);
@@ -48,6 +54,65 @@ class Musicmodel extends CI_Model
         }
 
         return $id;
+    }
+    
+    public function songs_getAll()
+    {
+        $this->db->select('song.*,album.album_name,artist.artist_name');
+        $this->db->from('song');
+        $this->db->join('album', 'album.id = song.id_album');
+        $this->db->join('artist', 'artist.id = song.id_artist');
+        
+        $query = $this->db->get();
+        $aList = $query->result_array();
+        
+        $this->db->flush_cache();
+        
+        foreach ($aList as $key => $val) {
+            $this->db->select('name_genre');
+            $this->db->where('song_genre.id_song', $val['id']);
+            $this->db->from('song_genre');
+            $this->db->join('song', 'song.id = song_genre.id_song');
+            $this->db->join('music_genre', 'music_genre.id = song_genre.id_genre');
+            $query2 = $this->db->get();
+            $aGenre = $query2->result_array();
+            
+            $aList[$key]['aGenre'] = array();
+            foreach ($aGenre as $aOneGenre) {
+                $aList[$key]['aGenre'][] = $aOneGenre;
+            }
+        }
+        
+        return $aList;
+    }
+    
+    public function songs_getOne($iId)
+    {
+        $this->db->select('song.*,album.album_name,artist.artist_name');
+        $this->db->from('song');
+        $this->db->where('song.id',$iId);
+        $this->db->join('album', 'album.id = song.id_album');
+        $this->db->join('artist', 'artist.id = song.id_artist');
+        
+        $query = $this->db->get();
+        $aList = $query->row_array();
+        
+        $this->db->flush_cache();
+        
+        $this->db->select('name_genre');
+        $this->db->where('song_genre.id_song', $aList['id']);
+        $this->db->from('song_genre');
+        $this->db->join('song', 'song.id = song_genre.id_song');
+        $this->db->join('music_genre', 'music_genre.id = song_genre.id_genre');
+        $query2 = $this->db->get();
+        $aGenre = $query2->result_array();
+
+        $aList['aGenre'] = array();
+        foreach ($aGenre as $aOneGenre) {
+            $aList['aGenre'][] = $aOneGenre['name_genre'];
+        }
+        
+        return $aList;
     }
     
 }

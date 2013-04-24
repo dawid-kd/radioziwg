@@ -238,6 +238,47 @@ class Admin extends CI_Controller
         $this->load->view('templates/main', $data);
     }
     
+    public function albums_add()
+    {
+        $data['mainContent'] = 'admin/index';
+        $data['viewContent'] = 'admin/albums/add';
+        
+        $data['aMenu'] = $this->aMenu;
+        $data['sMsg'] = false;
+        
+                
+        # If form is submitted
+        if ($this->input->post('bProceed')) {
+            # set rules for form validation class
+            $aFormConfig = array(
+                array(
+                    'field' => 'album_name',
+                    'label' => 'album_name',
+                    'rules' => 'trim|xss_clean|required'
+                )
+            );
+
+            $this->form_validation->set_rules($aFormConfig);
+            
+            if ($this->form_validation->run()) {
+                # get all columns name from table
+                $aCols = $this->Musicmodel->getColumns('album');
+                
+                # get all data from form fields
+                $aData = array();
+                foreach ($aCols as $sCol) {
+                    $aData[$sCol] = $this->input->post($sCol);
+                }
+                # update user data
+                $this->Musicmodel->setData('album',$aData);
+                
+                redirect('admin/albums_showAll');
+            }
+        }
+        
+        $this->load->view('templates/main', $data);
+    }
+    
     public function songs_showAll()
     {
         
@@ -246,17 +287,147 @@ class Admin extends CI_Controller
         
         $data['aMenu'] = $this->aMenu;
         
-        # get all register users
-        $data['aUsers'] = $this->Musicmodel->getAll();
+        # get all register songs
+        $data['aList'] = $this->Musicmodel->songs_getAll();
         
         $this->load->view('templates/main', $data);
         
+    }
+    
+    public function songs_edit($iId)
+    {
+        # redirect to base location if ID < 0
+        if (!$iId || $iId < 0) {
+            redirect('admin/songs_showAll');
+        }
+        
+        $data['mainContent'] = 'admin/index';
+        $data['viewContent'] = 'admin/songs/edit';
+        
+        $data['aMenu'] = $this->aMenu;
+        $data['sMsg'] = false;
+        
+        # get record by id. if false -> redirect to base location
+        if (! $data['aOne'] = $this->Musicmodel->songs_getOne($iId)) {
+            redirect('admin/songs_showAll');
+        }
+        
+        $data['aAlbums'] = $this->Musicmodel->getAll('album');
+        $data['aArtists'] = $this->Musicmodel->getAll('artist');
+        
+        
+        # If form is submitted
+        if ($this->input->post('bProceed')) {
+            # set rules for form validation class
+            $aFormConfig = array(
+                array(
+                    'field' => 'song_name',
+                    'label' => 'song_name',
+                    'rules' => 'trim|xss_clean|required'
+                )
+            );
+
+            $this->form_validation->set_rules($aFormConfig);
+            
+            if ($this->form_validation->run()) {
+                # get all columns name from table
+                $aCols = $this->Musicmodel->getColumns('song');
+                
+                # get all data from form fields
+                $aData = array();
+                foreach ($aCols as $sCol) {
+                    $aData[$sCol] = $this->input->post($sCol);
+                }
+                # update user data
+                $this->Musicmodel->setData('song',$aData);
+                
+                # get updated record
+                $data['aOne'] = $this->Musicmodel->songs_getOne($iId);
+                $data['sMsg'] = 'Changes saved';
+            }
+        }
+        
+        $this->load->view('templates/main', $data);
+    }
+    
+    public function songs_delete()
+    {
+        $data['mainContent'] = 'admin/index';
+        $data['viewContent'] = 'admin/songs/delete';
+        
+        $data['aMenu'] = $this->aMenu;
+        
+        if ($this->input->post('id')) {
+            $iId = $this->input->post('id');
+            $this->Musicmodel->deleteOne('song',$iId);
+            $data['sMsg'] = '<p class="text-success">Record deleted</p>';
+            
+        } else {
+            $data['sMsg'] = '<p class="text-error">Error</p>';
+        }
+        
+        $this->load->view('templates/main', $data);
+    }
+    
+    public function songs_add()
+    {
+        $data['mainContent'] = 'admin/index';
+        $data['viewContent'] = 'admin/songs/add';
+        
+        $data['aMenu'] = $this->aMenu;
+        $data['sMsg'] = false;
+        
+        $data['aAlbums'] = $this->Musicmodel->getAll('album');
+        $data['aArtists'] = $this->Musicmodel->getAll('artist');
+        
+        
+        # If form is submitted
+        if ($this->input->post('bProceed')) {
+            # set rules for form validation class
+            $aFormConfig = array(
+                array(
+                    'field' => 'song_name',
+                    'label' => 'song_name',
+                    'rules' => 'trim|xss_clean|required'
+                )
+            );
+
+            $this->form_validation->set_rules($aFormConfig);
+            
+            if ($this->form_validation->run()) {
+                # get all columns name from table
+                $aCols = $this->Musicmodel->getColumns('song');
+                
+                # get all data from form fields
+                $aData = array();
+                foreach ($aCols as $sCol) {
+                    $aData[$sCol] = $this->input->post($sCol);
+                }
+                # update user data
+                $this->Musicmodel->setData('song',$aData);
+                
+                # get updated record
+                redirect('admin/songs_showAll');
+            }
+        }
+        
+        $this->load->view('templates/main', $data);
     }
     
     public function artists_showAll()
     {
         
         
+        
+    }
+    
+    public function artists_edit($iId)
+    {
+        
+    }
+    
+    public function artists_delete()
+    {
         
     }
     
