@@ -361,7 +361,7 @@ class Admin extends CI_Controller
         
         if ($this->input->post('id')) {
             $iId = $this->input->post('id');
-            $this->Musicmodel->deleteOne('song',$iId);
+            $this->Musicmodel->songs_deleteOne($iId);
             $data['sMsg'] = '<p class="text-success">Record deleted</p>';
             
         } else {
@@ -634,7 +634,7 @@ class Admin extends CI_Controller
         
         if ($this->input->post('id')) {
             $iId = $this->input->post('id');
-            $this->Musicmodel->deleteOne($data['sModuleName'],$iId);
+            $this->Musicmodel->radio_deleteOne($iId);
             $data['sMsg'] = '<p class="text-success">Record deleted</p>';
             
         } else {

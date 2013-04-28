@@ -160,6 +160,23 @@ class Musicmodel extends CI_Model
         return $id;
     }
     
+    public function songs_deleteOne($iId)
+    {
+        $sModuleName = 'song';
+        
+        $this->db->where('id',$iId);
+        if ($this->db->delete($sModuleName)) {
+            
+            $this->db->flush_cache();
+            # delete all genre records
+            $this->db->where('id_'.$sModuleName,$iId);
+            $this->db->delete($sModuleName.'_genre');
+            
+            return true;
+        }
+        return false;
+    }
+    
     public function radio_getAll()
     {
         $sModuleName = 'radio';
@@ -260,6 +277,23 @@ class Musicmodel extends CI_Model
         }
 
         return $id;
+    }
+    
+    public function radio_deleteOne($iId)
+    {
+        $sModuleName = 'radio';
+        
+        $this->db->where('id',$iId);
+        if ($this->db->delete($sModuleName)) {
+            
+            $this->db->flush_cache();
+            # delete all genre records
+            $this->db->where('id_'.$sModuleName,$iId);
+            $this->db->delete($sModuleName.'_genre');
+            
+            return true;
+        }
+        return false;
     }
 }
 ?>
