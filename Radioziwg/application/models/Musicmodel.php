@@ -115,5 +115,151 @@ class Musicmodel extends CI_Model
         return $aList;
     }
     
+    public function songs_setData($aData,$iaGenreIds)
+    {
+        $id = isset($aData['id']) ? $aData['id'] : 0;
+
+        if ($id > 0)
+        {
+            $this->db->where('id', $id);
+            $this->db->update('song', $aData);
+            
+            $this->db->flush_cache();
+            
+            # delete old song genre
+            $this->db->where('id_song',$id);
+            $this->db->delete('song_genre');
+            
+            $this->db->flush_cache();
+            
+            # insert song genre record
+            foreach ($iaGenreIds as $iIdGenre) {
+                $aDataGenre = array();
+                $aDataGenre['id_genre'] = $iIdGenre;
+                $aDataGenre['id_song'] = $id;
+                $this->db->insert('song_genre',$aDataGenre);
+            }
+        }
+        else
+        {
+            $this->db->insert('song', $aData);
+            $id = $this->db->insert_id();
+            
+            $this->db->flush_cache();
+            
+            # insert song genre record
+            foreach ($iaGenreIds as $iIdGenre) {
+                $aDataGenre = array();
+                $aDataGenre['id_genre'] = $iIdGenre;
+                $aDataGenre['id_song'] = $id;
+                $this->db->insert('song_genre',$aDataGenre);
+            }
+            
+        }
+
+        return $id;
+    }
+    
+    public function radio_getAll()
+    {
+        $sModuleName = 'radio';
+        
+        $query = $this->db->get($sModuleName);
+        $aList = $query->result_array();
+        
+        $this->db->flush_cache();
+        
+        foreach ($aList as $key => $val) {
+            $this->db->select('name_genre');
+            $this->db->where('radio_genre.id_radio', $val['id']);
+            $this->db->from('radio_genre');
+            $this->db->join('radio', 'radio.id = radio_genre.id_radio');
+            $this->db->join('music_genre', 'music_genre.id = radio_genre.id_genre');
+            $query2 = $this->db->get();
+            $aGenre = $query2->result_array();
+            
+            $aList[$key]['aGenre'] = array();
+            foreach ($aGenre as $aOneGenre) {
+                $aList[$key]['aGenre'][] = $aOneGenre;
+            }
+        }
+        
+        return $aList;
+    }
+    
+    public function radio_getOne($iId)
+    {
+        $sModuleName = 'radio';
+        
+        $this->db->select();
+        $this->db->from($sModuleName);
+        $this->db->where($sModuleName.'.id',$iId);
+        
+        $query = $this->db->get();
+        $aList = $query->row_array();
+        
+        $this->db->flush_cache();
+        
+        $this->db->select('name_genre');
+        $this->db->where('radio_genre.id_radio', $iId);
+        $this->db->from('radio_genre');
+        $this->db->join('radio', 'radio.id = radio_genre.id_radio');
+        $this->db->join('music_genre', 'music_genre.id = radio_genre.id_genre');
+        $query2 = $this->db->get();
+        $aGenre = $query2->result_array();
+
+        $aList['aGenre'] = array();
+        foreach ($aGenre as $aOneGenre) {
+            $aList['aGenre'][] = $aOneGenre['name_genre'];
+        }
+        
+        return $aList;
+    }
+    
+    public function radio_setData($aData,$iaGenreIds)
+    {
+        $sModuleName = 'radio';
+        $id = isset($aData['id']) ? $aData['id'] : 0;
+
+        if ($id > 0)
+        {
+            $this->db->where('id', $id);
+            $this->db->update($sModuleName, $aData);
+            
+            $this->db->flush_cache();
+            
+            # delete old song genre
+            $this->db->where('id_'.$sModuleName,$id);
+            $this->db->delete($sModuleName.'_genre');
+            
+            $this->db->flush_cache();
+            
+            # insert song genre records
+            foreach ($iaGenreIds as $iIdGenre) {
+                $aDataGenre = array();
+                $aDataGenre['id_genre'] = $iIdGenre;
+                $aDataGenre['id_'.$sModuleName] = $id;
+                $this->db->insert($sModuleName.'_genre',$aDataGenre);
+            }
+        }
+        else
+        {
+            $this->db->insert($sModuleName, $aData);
+            $id = $this->db->insert_id();
+            
+            $this->db->flush_cache();
+            
+            # insert song genre record
+            foreach ($iaGenreIds as $iIdGenre) {
+                $aDataGenre = array();
+                $aDataGenre['id_genre'] = $iIdGenre;
+                $aDataGenre['id_'.$sModuleName] = $id;
+                $this->db->insert($sModuleName.'_genre',$aDataGenre);
+            }
+            
+        }
+
+        return $id;
+    }
 }
 ?>

@@ -16,6 +16,7 @@ class Admin extends CI_Controller
             'Albums'        => 'admin/albums_showAll',
             'Songs'         => 'admin/songs_showAll',
             'Artists'       => 'admin/artists_showAll',
+            'Radio'         => 'admin/radio_showAll',
             
         );
     }
@@ -314,6 +315,7 @@ class Admin extends CI_Controller
         
         $data['aAlbums'] = $this->Musicmodel->getAll('album');
         $data['aArtists'] = $this->Musicmodel->getAll('artist');
+        $data['aGenres'] = $this->Musicmodel->getAll('music_genre');
         
         
         # If form is submitted
@@ -338,8 +340,8 @@ class Admin extends CI_Controller
                 foreach ($aCols as $sCol) {
                     $aData[$sCol] = $this->input->post($sCol);
                 }
-                # update user data
-                $this->Musicmodel->setData('song',$aData);
+                # update data
+                $this->Musicmodel->songs_setData($aData,$this->input->post('aGenreIds'));
                 
                 # get updated record
                 $data['aOne'] = $this->Musicmodel->songs_getOne($iId);
@@ -379,6 +381,7 @@ class Admin extends CI_Controller
         
         $data['aAlbums'] = $this->Musicmodel->getAll('album');
         $data['aArtists'] = $this->Musicmodel->getAll('artist');
+        $data['aGenres'] = $this->Musicmodel->getAll('music_genre');
         
         
         # If form is submitted
@@ -403,8 +406,8 @@ class Admin extends CI_Controller
                 foreach ($aCols as $sCol) {
                     $aData[$sCol] = $this->input->post($sCol);
                 }
-                # update user data
-                $this->Musicmodel->setData('song',$aData);
+                # update data
+                $this->Musicmodel->songs_setData($aData,$this->input->post('aGenreIds'));
                 
                 # get updated record
                 redirect('admin/songs_showAll');
@@ -544,6 +547,142 @@ class Admin extends CI_Controller
                 $this->Musicmodel->setData('artist',$aData);
                 
                 redirect('admin/artists_showAll');
+            }
+        }
+        
+        $this->load->view('templates/main', $data);
+    }
+    
+    public function radio_showAll()
+    {
+        $data['sModuleName'] = 'radio';
+        $data['mainContent'] = 'admin/index';
+        $data['viewContent'] = 'admin/'.$data['sModuleName'].'/showAll';
+        
+        $data['aMenu'] = $this->aMenu;
+        
+        # get all register songs
+        $data['aList'] = $this->Musicmodel->radio_getAll($data['sModuleName']);
+        
+        $this->load->view('templates/main', $data);
+        
+    }
+    
+    public function radio_edit($iId)
+    {
+        # redirect to base location if ID < 0
+        if (!$iId || $iId < 0) {
+            redirect('admin/songs_showAll');
+        }
+        
+        $data['sModuleName'] = 'radio';
+        $data['mainContent'] = 'admin/index';
+        $data['viewContent'] = 'admin/'.$data['sModuleName'].'/edit';
+        
+        $data['aMenu'] = $this->aMenu;
+        $data['sMsg'] = false;
+        
+        # get record by id. if false -> redirect to base location
+        if (! $data['aOne'] = $this->Musicmodel->radio_getOne($iId)) {
+            redirect('admin/'.$data['sModuleName'].'_showAll');
+        }
+        
+        $data['aGenres'] = $this->Musicmodel->getAll('music_genre');
+        
+        
+        # If form is submitted
+        if ($this->input->post('bProceed')) {
+            # set rules for form validation class
+            $aFormConfig = array(
+                array(
+                    'field' => $data['sModuleName'].'_name',
+                    'label' => $data['sModuleName'].'_name',
+                    'rules' => 'trim|xss_clean|required'
+                )
+            );
+
+            $this->form_validation->set_rules($aFormConfig);
+            
+            if ($this->form_validation->run()) {
+                # get all columns name from table
+                $aCols = $this->Musicmodel->getColumns($data['sModuleName']);
+                
+                # get all data from form fields
+                $aData = array();
+                foreach ($aCols as $sCol) {
+                    $aData[$sCol] = $this->input->post($sCol);
+                }
+                # update data
+                $this->Musicmodel->radio_setData($aData,$this->input->post('aGenreIds'));
+                
+                # get updated record
+                $data['aOne'] = $this->Musicmodel->radio_getOne($iId);
+                $data['sMsg'] = 'Changes saved';
+            }
+        }
+        
+        $this->load->view('templates/main', $data);
+    }
+    
+    public function radio_delete()
+    {
+        $data['sModuleName'] = 'radio';
+        $data['mainContent'] = 'admin/index';
+        $data['viewContent'] = 'admin/'.$data['sModuleName'].'/delete';
+        
+        $data['aMenu'] = $this->aMenu;
+        
+        if ($this->input->post('id')) {
+            $iId = $this->input->post('id');
+            $this->Musicmodel->deleteOne($data['sModuleName'],$iId);
+            $data['sMsg'] = '<p class="text-success">Record deleted</p>';
+            
+        } else {
+            $data['sMsg'] = '<p class="text-error">Error</p>';
+        }
+        
+        $this->load->view('templates/main', $data);
+    }
+    
+    public function radio_add()
+    {
+        $data['sModuleName'] = 'radio';
+        $data['mainContent'] = 'admin/index';
+        $data['viewContent'] = 'admin/'.$data['sModuleName'].'/add';
+        
+        $data['aMenu'] = $this->aMenu;
+        $data['sMsg'] = false;
+        
+        $data['aGenres'] = $this->Musicmodel->getAll('music_genre');
+        
+        
+        # If form is submitted
+        if ($this->input->post('bProceed')) {
+            # set rules for form validation class
+            $aFormConfig = array(
+                array(
+                    'field' => $data['sModuleName'].'_name',
+                    'label' => $data['sModuleName'].'_name',
+                    'rules' => 'trim|xss_clean|required'
+                )
+            );
+
+            $this->form_validation->set_rules($aFormConfig);
+            
+            if ($this->form_validation->run()) {
+                # get all columns name from table
+                $aCols = $this->Musicmodel->getColumns($data['sModuleName']);
+                
+                # get all data from form fields
+                $aData = array();
+                foreach ($aCols as $sCol) {
+                    $aData[$sCol] = $this->input->post($sCol);
+                }
+                # update data
+                $this->Musicmodel->radio_setData($aData,$this->input->post('aGenreIds'));
+                
+                # get updated record
+                redirect('admin/'.$data['sModuleName'].'_showAll');
             }
         }
         

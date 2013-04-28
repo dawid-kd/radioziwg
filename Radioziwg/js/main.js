@@ -4,4 +4,11 @@ $(document).ready(function(){
                 return true;
             return false;
         });
+        
+        $('#addGenre').click(function(){
+            var aList = $('#genreSelect').html();
+            $('#genreList').append(aList);
+        });
     })
+    
+    
