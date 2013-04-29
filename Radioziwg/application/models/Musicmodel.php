@@ -295,5 +295,9 @@ class Musicmodel extends CI_Model
         }
         return false;
     }
+	public function getIdAndSongsNames($sTableName) {
+		$this -> db -> select('id, song_name');
+		return $this -> db -> get($sTableName) -> result_array();
+	}
 }
 ?>
