@@ -2,6 +2,7 @@
 
 class Welcome extends CI_Controller {
 
+        private $data = array();
 	/**
 	 * Index Page for this controller.
 	 *
@@ -18,9 +19,10 @@ class Welcome extends CI_Controller {
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
-	{
-		$this->load->view('welcome_message');
-                var_dump(sha1("sniezny koczkodan zwany przez niektorych yeti"));
+	{       
+		$this->data['content']='mainpage';
+                $this->data['radio']=isset($_GET['radio'])?$_GET['radio']:'none';
+                $this->load->view('wrapper', $this->data);
 	}
 }
 

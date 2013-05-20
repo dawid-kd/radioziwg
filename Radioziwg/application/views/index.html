@@ -1,10 +1,154 @@
+﻿<!DOCTYPE html>
 <html>
-<head>
-	<title>403 Forbidden</title>
-</head>
-<body>
+    
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <!-- <link href="assets/css/bootstrap-responsive.css" rel="stylesheet"> -->
+	<link href="twitter-bootstrap/twitter-bootstrap-v2/docs/assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
+ <!--    <link href="twitter-bootstrap/twitter-bootstrap-v2/docs/assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />  -->
+        <link rel="stylesheet" href=style.css type="text/css"> 
+    </head>
+    <body>
+      <div class="navbar navbar-fixed-top">
+ 	   <div class="navbar-inner">
+    	   <div class="container">
+            <ul class="nav pull-left">
+              <li><a href="index.html"><i class="icon-home icon-white"></i>Strona główna</a></li>
+	          <li><a href="musiclist.html"><i class="icon-music icon-white"></i>Lista przebojów</a></li>
+              <li><a href="votes.html"><i class="icon-eye-open icon-white"></i>Głosowania</a></li>	
+	          <li><a href="surveys.html"><i class="icon-user icon-white"></i>Ankiety</a></li>
+              <li><a href="competitions.html"><i class="icon-gift icon-white"></i>Konkursy</a></li>
+              <li><a href="weather.html"><i class="icon-cog icon-white"></i>Pogoda</a></li>
+            </ul>
+		<ul class="nav pull-right">
+		<li class="dropdown">
+    			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-lock icon-white"></i>Panel administratora<b class="caret"></b></a>
+    			<ul class="dropdown-menu">
+    				<li><a href="albumlist.html">Albumy</a></li>
+     				<li><a href="artistlist.html">Artyści</a></li>
+     				<li><a href="radia.html">Radia</a></li>
+                    <li><a href="songlist.html">Utwory</a></li>
+                    <li><a href="surveyslist.html">Ankiety</a></li>
+                    <li><a href="userslist.html">Użytkownicy</a></li>
+    			</ul>
+		</li>
+	    </ul>		  
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+        <div class="container">
+		<div class="row" id=radioItemsPadding>
+			<div class="span4">
+          			<p>
+					<a href="http://www.w3resource.com/sql/tutorials.php" class="thumbnail">
+					<img src="metal.png" alt="" />
+					</a>
+				</p>
+        		</div>
+			<div class="span4">
+          			<p>
+					<a href="http://www.w3resource.com/sql/tutorials.php" class="thumbnail">
+					<img src="classic.png" alt="" />
+					</a>
+				</p>
+        		</div>
+			<div class="span4">
+          			<p>
+					<a href="http://www.w3resource.com/sql/tutorials.php" class="thumbnail">
+					<img src="rock.png" alt="" />
+					</a>
+				</p>
+            </div>
+		</div>
+		<div class="row">
+		<div id=audioPlayer>
+                <p>
+				    <section class="s-audio">
+                                       <audio controls="controls" autoplay="autoplay" src=""></audio>
+                    </section>
+                </p>
+                      
+			
+		</div>
+		</div>
+	</div>
+        <!-- <div>aąbcćdeęfghijklłmnoópqrsśtuvwxzżź</div>          -->
+        <div class="container">
+            <div class="row">
+                <div class="span3">
+                    <nav class="main">
+                        <h2>Zalogowany</h2>
+                            <p>Zalogowany jako:</p>
+                            <p>Imię Nazwisko</p></br>          
+                            <p><button class="btn btn-primary" data-toggle="button" id="loginItems">Wyloguj</button> </p>
+                            <p><a href="">Zmień hasło</a></p>
+                    </nav>
+                    <aside class="aside-bg">
+                        <h3 class="nagl">Przydatne linki</h3>
+                        <ul class="unstyled">
+                            <li><a href="http://www.musicarena.pl">Music Arena</a></li>
+                            <li><a href="http://www.lastfm.pl">Last.fm</a></li>
+                            <li><a href="http://www.rmf.fm/">RMF FM</a></li>
+                        </ul>
+                    </aside>
 
-<p>Directory access is forbidden.</p>
 
-</body>
+                </div>
+            <div class="span9 bgblue span9-ext">
+                <div class="row row-ext ">
+                        <div class="span5 span5-ext bgblue2">
+                            <div>
+                                <article>
+                                    <p class="nagl">Aktualnie słuchane stacje:</p>
+                                    <table>
+                                        <tr class="tlo">
+                                            <td class="logo"><img src="metal.png" width="40px"/></td>
+                                            <td class="nazwaradia"><p> Radio Metal</p></td>
+                                            <td class="play"><i class="icon-play icon-white"></i></td>
+                                            <td class="utwor"><p><em>Tytuł utworu </em>- Wykonawca</p></td>
+                                        </tr>
+                                        <tr >
+                                            <td class="logo"><img src="rock.png" width="40px"/></td>
+                                            <td class="nazwaradia"><p>   Radio Rock  </p></td>
+                                            <td class="play"><i class="icon-play icon-white"></i></td>
+                                            <td class="utwor"><p><em>Tytuł utworu </em>- Wykonawca (Dłuższa nazwa)</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="tlo">
+                                            <td class="logo"><img src="metal.png" width="40px"/></td>
+                                            <td class="nazwaradia"><p> Radio Classic</p></td>
+                                            <td class="play"><i class="icon-play icon-white"></i></td>
+                                            <td class="utwor"><p><em>Tytuł utworu/piosenki </em>- Wykonawca</p></td>
+                                        </tr>
+                                        <tr class="tlo">
+                                            <td class="logo"><img src="metal.png" width="40px"/></td>
+                                            <td class="nazwaradia"><p> RMF FM</p></td>
+                                            <td class="play"><i class="icon-play icon-white"></i></td>
+                                            <td class="utwor"><p><em>Tytuł utworu </em>- Wykonawca</p></td>
+                                        </tr>
+                                    </table>
+                                </article>
+                            </div>
+                        </div>
+                        <div class="span3 span3-ext bgblue2">
+                            <p class="nagl">Gitarowy Rekord Guinnessa na 5734 gitar!</p>
+                            <p>Aż 5734 gitarzystów przybyło 1 maja na wrocławski Rynek, by zagrać w wielkiej orkiestrze, którą dyrygował Leszek Cichoński. “Hey Joe” Jimiego Hendrixa wspólnie z tysiącami gitarzystów zagrała także Jennifer Batten - gitarzystka Michaela Jacksona, Bruce Kulick – gitarzysta KISS, John Corabi - wokalista i gitarzysta Mötley Crüe oraz Chuck Garric (gitarzysta Alice Coopera).</p>
+                            <a href="http://www.rmfclassic.pl/informacje/Muzyka,10/Gitarowy-Rekord-Guinnessa-na-5734-gitar,19793.html">Czytaj dalej...</a>
+                        </div>
+                </div>
+                
+            </div>
+            </div>
+       </div>
+        <div class="container">
+        <footer>
+            Radio internetowe, @Copyright by Politechnika Wrocławska
+        </footer>
+        </div>
+    </body>
 </html>
+
+    <script src="twitter-bootstrap/twitter-bootstrap-v2/docs/assets/js/jquery.js"></script>
+    <script src="twitter-bootstrap/twitter-bootstrap-v2/docs/assets/js/bootstrap-dropdown.js"></script>

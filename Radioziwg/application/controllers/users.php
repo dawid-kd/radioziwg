@@ -22,18 +22,22 @@ class Users extends CI_Controller
         //$check=$this->Usersmodel->emailcheck('daw2342@wp.pl');
         //echo $this->Usersmodel->login('daw2342@wp.pl','password');
         //echo $check;
-        echo $this->Usersmodel->getAlert();
-        echo $this->session->userdata('username');
-        echo $this->Usersmodel->isLogged();
+        //echo $this->Usersmodel->getAlert();
+       // echo $this->session->userdata('username');
+        ///echo $this->Usersmodel->isAdmin();
         //$this->Usersmodel->logout();
         echo $this->session->userdata('username');
+        echo $this->session->userdata('isAdmin');
+        //echo $this->Usersmodel->getmailId('asd@wp.pl');
         //$this->Usersmodel->setData(['id'=>'1','city'=>'leszno']);
         //var_dump($this->Usersmodel->getData('1'));
         //$user = $this->Usersmodel->getData($args);
         //echo $args['password'];
         $args = $this->Usersmodel->getId();
 	$user = $this->Usersmodel->getData($args);
-        var_dump($user);
+        //$this->data['content']='mainpage';
+        //$this->load->view('index', $this->data);
+        //var_dump($user);
         //echo $user->password;
         }
         
@@ -203,8 +207,106 @@ public function register()
                 }
 	}
        
-}
 
+
+ public function changepassword()
+	{
+		if($this->Usersmodel->isLogged())
+                {
+		$args = $this->Usersmodel->getId();
+		
+		$user = $this->Usersmodel->getData($args);
+
+		//$this->data['info'] = 'Obecny adres e-mail: <b>' . $user->email . '</b>';
+
+		//$this->form_validation->set_error_delimiters('<div class="error ui-corner-all ui-state-error">', '</div>');
+		$this->form_validation->set_rules('oldpassword', 'oldpassword', 'trim|xss_clean|required');
+		$this->form_validation->set_rules('newpassword', 'newpassword', 'trim|xss_clean|required');
+                $this->form_validation->set_rules('newpassword2', 'newpassword2', 'trim|xss_clean|required|matches[newpassword]');
+		if ($this->form_validation->run($this))
+		{
+			if ($user->password != $this->input->post('oldpassword'))
+			{
+				$this->data['error'] = 'Błędne hasło';
+			}
+			else
+			{
+				$args1 = array(
+					'id' => $this->Usersmodel->getId(),
+					'password' => $this->input->post('newpassword'),
+				);
+				$this->Usersmodel->setData($args1);
+
+				$this->session->set_flashdata('info', 'Haslo zostalo zmienione');
+				redirect('users/show');
+			}
+		}
+
+		//$this->data['title'] = 'Zmiana adresu e-mail';
+		//$this->data['content'] = $this->load->view('front/users/changeEmail', $this->data, TRUE);
+		//$this->load->view('front/wrapper', $this->data);
+                 $this->load->view('changepassword', $this->data);
+                }
+                else
+                {
+                    redirect('users/login');
+                }
+	}
+        
+        public function forgotpassword()
+	{
+		
+		$this->form_validation->set_rules('email', 'email', 'trim|xss_clean|required');
+		
+		if ($this->form_validation->run($this))
+		{
+                    $email = $this->input->post('email');
+                    if ($this->Usersmodel->Emailcheck($email))
+				{
+                                $this->load->helper('string');
+                                $newpassword= random_string('alnum', 16);
+				$args1 = array(
+					'id' => $this->Usersmodel->getmailId($email),
+					'password' => $newpassword,
+				);
+				$this->Usersmodel->setData($args1);
+                                $config = Array(
+                                    'protocol' => 'smtp',
+                                    'smtp_host' => 'ssl://smtp.googlemail.com',
+                                    'smtp_port' => 465,
+                                    'smtp_user' => 'ziwgradio@googlemail.com',
+                                    'smtp_pass' => 'radioziwg123',
+                                    'mailtype'  => 'html', 
+                                    'charset'   => 'iso-8859-1'
+                                );
+                                $this->load->library('email', $config);
+                                $this->email->set_newline("\r\n");
+                                $this->email->from('ziwgradio@gmail.com', 'ziwg');
+                                $this->email->to($email);   
+                                $this->email->subject('Password reset');
+                                $this->email->message('Twoje tymczasowe hasło to:'. $newpassword. 'Zmien je po zalogowaniu');
+
+// Set to, from, message, etc.
+
+                                if (!$this->email->send())
+    show_error($this->email->print_debugger());
+else
+    echo 'Your e-mail has been sent!'; 
+				$this->session->set_flashdata('info', 'Haslo zostalo zmienione');
+				redirect('users/show');
+			}
+                        
+		}
+
+		//$this->data['title'] = 'Zmiana adresu e-mail';
+		//$this->data['content'] = $this->load->view('front/users/changeEmail', $this->data, TRUE);
+		//$this->load->view('front/wrapper', $this->data);
+                 $this->load->view('forgotpassword', $this->data);
+                
+	}
+        
+       
+}
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.

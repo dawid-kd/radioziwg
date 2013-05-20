@@ -49,17 +49,21 @@ class Usersmodel extends CI_Model
 
                         if ($row1['id'] > 0)
                         {
+                            if($row1['user_type']=='A'){
+                                $isadmin = 1;
+                                
+                            }else{
+                                $isadmin = 0;
+                                
+                            }
                             $args = array(
                                 'id' => $row1['id'],
                                 'type' => $row1['user_type'],
                                 'username' => $row1['user_name'] . ' ' . $row1['user_surname'],
+                                'isAdmin' => $isadmin,
                             );
                             $this->session->set_userdata($args);
-                            if($row1['user_type']=='A'){
-                                $this->isAdmin = 1;
-                            }else{
-                                $this->isAdmin = 0;
-                            }
+                            
                             
 
                             return TRUE;
@@ -92,7 +96,7 @@ public function logout()
         $this->session->sess_destroy();
 
         $this->alert = '';
-        $this->isAdmin = 0;
+        $this->admin = 0;
         $this->userId = 0;
     }
 
@@ -103,15 +107,15 @@ public function getAlert()
     
  public function isAdmin()
     {
-        $this->isAdmin = intval($this->session->userdata('isAdmin'));
+        $this->admin = intval($this->session->userdata('isAdmin'));
 
-        if ($this->isAdmin == 1)
+        if ($this->admin == 1)
         {
-            return TRUE;
+            return 1;
         }
         else
         {
-            return FALSE;
+            return 0;
         }
 
         
@@ -140,6 +144,21 @@ public function getAlert()
         }
 
         return $this->userId;
+    }
+    
+        public function getmailId($email)
+    {
+        $this->db->select('id');
+        $this->db->from('user');
+        $this->db->where('email1', $email);
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0)
+        {
+            $row = $query->row_array();
+        }
+
+        return $row['id'];
     }
     
     public function setData($args = array())

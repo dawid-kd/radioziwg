@@ -38,9 +38,12 @@
 |
 */
 
-$route['default_controller'] = "welcome";
+$route['default_controller'] = "welcome/index/none";
 $route['404_override'] = '';
 
-
+$route['classic'] = 'welcome/index/classic';
+$route['metal'] = 'welcome/index/metal';
+$route['rock'] = 'welcome/index/rock';
+$route['none'] = 'welcome/index/none';
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
