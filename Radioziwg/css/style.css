@@ -8,7 +8,7 @@ root,body, container, main, article, section, table {
 body
 {  
     background :url('../images/background.jpg');
-    width: 75%;
+    width: 100%;
     text-align: center;
    /* margin-left:*/
     line-height: 1;
