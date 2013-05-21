@@ -13,13 +13,13 @@
 		<li class="dropdown">
     			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-lock icon-white"></i>Panel administratora<b class="caret"></b></a>
     			<ul class="dropdown-menu">
-    				<li><a href="#">Albumy</a></li>
-     				<li><a href="#">Artyści</a></li>
-     				<li><a href="#">Radia</a></li>
-                    <li><a href="#">Utwory</a></li>
-                    <li><a href="#">Ankiety</a></li>
-                    <li><a href="#">Użytkownicy</a></li>
-                    <li><a href="#">Głosowania</a></li>
+                            <li><a href="#">Albumy</a></li>
+                            <li><a href="#">Artyści</a></li>
+                            <li><a href="#">Radia</a></li>
+                            <li><a href="#">Utwory</a></li>
+                            <li><a href="#">Ankiety</a></li>
+                            <li><a href="#">Użytkownicy</a></li>
+                            <li><a href="#">Głosowania</a></li>
     			</ul>
 		</li>
 	    </ul>		  
