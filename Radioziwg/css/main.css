@@ -20,7 +20,7 @@ root,body, container, main, article, section, table {
 body
 {  
     background :url('/images/background.jpg');
-    width: 100%;
+    width: 75%;
     text-align: center;
    /* margin-left:*/
     line-height: 1;
@@ -66,7 +66,7 @@ header.main h1 {
 	margin: 0;
 	height: 49px;
 }
-form {
+form#loginForm {
 	padding: 4px;
 	border: 1px solid #ecebe8;
 	-o-border-radius: 5px;

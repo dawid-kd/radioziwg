@@ -4,7 +4,6 @@
 <h4 class="text-success"><?php echo $sMsg ?></h4>
 <?php endif; ?>
 
-<?php echo form_open(base_url().'admin/albums_edit/'.$aOne['id']); ?>
 <form action="<?php echo base_url().'admin/albums_edit/'.$aOne['id']?>" method="post">
 
 <h5>Album name</h5>

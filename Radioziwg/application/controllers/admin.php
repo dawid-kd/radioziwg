@@ -168,16 +168,13 @@ class Admin extends CI_Controller
     
     public function albums_showAll()
     {
-        
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/albums/showAll';
-        
-        $data['aMenu'] = $this->aMenu;
-        
         # get all register users
         $data['aList'] = $this->Musicmodel->getAll('album');
         
-        $this->load->view('templates/main', $data);
+        $data['content']    = 'albumlist';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
+        
+        $this->load->view('wrapper', $data);
         
     }
     
@@ -188,10 +185,9 @@ class Admin extends CI_Controller
             redirect('admin/albums_showAll');
         }
         
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/albums/edit';
+        $data['content']    = 'editalbum';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         
-        $data['aMenu'] = $this->aMenu;
         $data['sMsg'] = false;
         
         # get record by id. if false -> redirect to base location
@@ -225,16 +221,13 @@ class Admin extends CI_Controller
             }
         }
         
-        $this->load->view('templates/main', $data);
-        
+        $this->load->view('wrapper', $data);
     }
     
     public function albums_delete()
     {
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/albums/delete';
-        
-        $data['aMenu'] = $this->aMenu;
+        $data['content']    = 'deletealbum';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         
         if ($this->input->post('id')) {
             $iId = $this->input->post('id');
@@ -245,15 +238,13 @@ class Admin extends CI_Controller
             $data['sMsg'] = '<p class="text-error">Error</p>';
         }
         
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
     }
     
     public function albums_add()
     {
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/albums/add';
-        
-        $data['aMenu'] = $this->aMenu;
+        $data['content']    = 'addalbum';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         $data['sMsg'] = false;
         
                 
@@ -286,7 +277,7 @@ class Admin extends CI_Controller
             }
         }
         
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
     }
     
     public function songs_showAll()

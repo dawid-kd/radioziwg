@@ -5,7 +5,7 @@
                           <article>                             
                              <p class="nagl">Lista albumów</p>
                               <div class="buttonaddadmin">
-                                 <a href="addalbum.html"><button class="btn btn-success" data-toggle="button" id="Button7">Dodaj nowy album</button></a>
+                                 <a href="<?php echo base_url().'admin/albums_add' ?>"><button class="btn btn-success" data-toggle="button" id="Button7">Dodaj nowy album</button></a>
                              </div>
                               <table class="table">
                                 <thead>
@@ -17,24 +17,19 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>1</td>
-                                    <td>By the way</td>
-                                    <td><a href="editalbum.html"><button class="btn btn-warning" data-toggle="button" id="Button1">Edytuj</button></a></td>
-                                    <td><button class="btn btn-danger" data-toggle="button" id="Button2">Usuń</button></td>
-                                  </tr>
-                                  <tr>
-                                    <td>2</td>
-                                    <td>Californication</td>
-                                    <td><a href="editalbum.html"><button class="btn btn-warning" data-toggle="button" id="Button3">Edytuj</button></a></td>
-                                    <td><button class="btn btn-danger" data-toggle="button" id="Button4">Usuń</button></td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>Greatest Hits of Coldplay</td>
-                                    <td><a href="editalbum.html"><button class="btn btn-warning" data-toggle="button" id="Button5">Edytuj</button></a></td>
-                                    <td><button class="btn btn-danger" data-toggle="button" id="Button6">Usuń</button></td>
-                                  </tr>
+                                    <?php foreach ($aList as $aOne) : ?>
+                                    <tr>
+                                        <td><?php echo $aOne['id'] ?></td>
+                                        <td><?php echo $aOne['album_name'] ?></td>
+                                        <td><a class="btn btn-warning" href="<?php echo base_url().'admin/albums_edit/'.$aOne['id'] ?>">Edytuj</a></td>
+                                        <td>
+                                            <form class="deleteRecord" action="<?php echo base_url().'admin/albums_delete' ?>" method="post">
+                                                <input type="hidden" name="id" value="<?php echo $aOne['id'] ?>" />
+                                                <input class="btn btn-danger" type="submit" name="delete" value="Usuń" />
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                               </table> 
                           </article>                     
