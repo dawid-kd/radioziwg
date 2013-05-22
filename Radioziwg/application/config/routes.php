@@ -40,10 +40,14 @@
 
 $route['default_controller'] = "welcome/index/none";
 $route['404_override'] = '';
-
+$route['main'] = "welcome/index";
 $route['classic'] = 'welcome/index/classic';
 $route['metal'] = 'welcome/index/metal';
 $route['rock'] = 'welcome/index/rock';
 $route['none'] = 'welcome/index/none';
+$route['register'] = 'users/register';
+$route['changepass'] = 'users/changepassword';
+$route['changemail'] = 'users/changemail';
+$route['forgot'] = 'users/forgotpassword';
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

@@ -46,7 +46,7 @@ class Users extends CI_Controller
 		if ($this->Usersmodel->isLogged())
 		{
 			$this->session->set_flashdata('info', 'Jesteś aktualnie zalogowany. Wyloguj się, aby zalogować się na inne konto.');
-                        //redirect();
+                        redirect(render_url('main',''));
 		}
 		else
 		{
@@ -66,23 +66,24 @@ class Users extends CI_Controller
 
 					if (isset($sessData['url']))
 					{
-						redirect('users/show');
+						redirect(render_url('main',''));
 					}
 					else
 					{
-						redirect('users/show');
+						redirect(render_url('main',''));
 					}
 				}
 				else
 				{
 					$this->session->set_flashdata('error', $this->Usersmodel->getAlert());
-					redirect('users/login');
+					redirect(render_url('main',''));
 				}
 			}
 
 			//$this->data['title'] = 'Logowanie';
 			//$this->data['content'] = $this->load->view('front/users/login', $this->data, TRUE);
-			$this->load->view('login', $this->data);
+			//$this->load->view('login', $this->data);
+                        redirect(render_url('main',''));
 		}
 	
 }
@@ -90,7 +91,7 @@ class Users extends CI_Controller
 public function logout()
 	{
 		$this->Usersmodel->logout();
-                redirect('users/login');
+                redirect(render_url('main',''));
 	}
 
 
@@ -99,7 +100,7 @@ public function register()
 		if ($this->Usersmodel->isLogged())
 		{
 			$this->session->set_flashdata('info', 'Jesteś aktualnie zalogowany. Wyloguj się, aby założyć nowe konto.');
-			//redirect();
+			redirect(render_url('main',''));
 		}
 		else
 		{
@@ -129,7 +130,7 @@ public function register()
 
 				//$this->User->login($this->input->post('email1'), $this->input->post('password'));
 
-				redirect('users/login');
+				redirect(render_url('main',''));
 			}
 		}
 
@@ -137,7 +138,9 @@ public function register()
 		//$this->data['title'] = 'Rejestracja';
 		//$this->data['content'] = $this->load->view('front/users/register', $this->data, TRUE);
 		//$this->load->view('front/wrapper', $this->data);
-                $this->load->view('register', $this->data);
+                $this->data['content']='register';
+                $this->data['radio']=isset($_GET['radio'])?$_GET['radio']:'none';
+                $this->load->view('wrapper', $this->data);
 	}
         public function checkEmailUnique($val)
 	{
@@ -181,7 +184,8 @@ public function register()
 		{
 			if ($user->password != $this->input->post('password'))
 			{
-				$this->data['error'] = 'Błędne hasło';
+				$this->session->set_flashdata('info', 'Błędne hasło');
+                                redirect(render_url('main',''));
 			}
 			else
 			{
@@ -192,14 +196,16 @@ public function register()
 				$this->Usersmodel->setData($args1);
 
 				$this->session->set_flashdata('info', 'Adres e-mail został zmieniony');
-				redirect('users/show');
+				redirect(render_url('main',''));
 			}
 		}
 
 		//$this->data['title'] = 'Zmiana adresu e-mail';
 		//$this->data['content'] = $this->load->view('front/users/changeEmail', $this->data, TRUE);
 		//$this->load->view('front/wrapper', $this->data);
-                 $this->load->view('changemail', $this->data);
+                $this->data['content']='changemail';
+                $this->data['radio']=isset($_GET['radio'])?$_GET['radio']:'none';
+                $this->load->view('wrapper', $this->data);
                 }
                 else
                 {
@@ -238,18 +244,20 @@ public function register()
 				$this->Usersmodel->setData($args1);
 
 				$this->session->set_flashdata('info', 'Haslo zostalo zmienione');
-				redirect('users/show');
+				redirect(render_url('main',''));
 			}
 		}
 
 		//$this->data['title'] = 'Zmiana adresu e-mail';
 		//$this->data['content'] = $this->load->view('front/users/changeEmail', $this->data, TRUE);
 		//$this->load->view('front/wrapper', $this->data);
-                 $this->load->view('changepassword', $this->data);
+                $this->data['content']='changepassword';
+                $this->data['radio']=isset($_GET['radio'])?$_GET['radio']:'none';
+                $this->load->view('wrapper', $this->data);
                 }
                 else
                 {
-                    redirect('users/login');
+                    redirect(render_url('main',''));
                 }
 	}
         
@@ -289,11 +297,12 @@ public function register()
 // Set to, from, message, etc.
 
                                 if (!$this->email->send())
-    show_error($this->email->print_debugger());
-else
-    echo 'Your e-mail has been sent!'; 
-				$this->session->set_flashdata('info', 'Haslo zostalo zmienione');
-				redirect('users/show');
+                                    $this->session->set_flashdata('info', 'Blad wyslania');
+    //show_error($this->email->print_debugger());
+                                else
+                                    $this->session->set_flashdata('info', 'Haslo zostalo wyslane'); 
+				//$this->session->set_flashdata('info', 'Haslo zostalo zmienione');
+				redirect(render_url('main',''));
 			}
                         
 		}
@@ -301,7 +310,9 @@ else
 		//$this->data['title'] = 'Zmiana adresu e-mail';
 		//$this->data['content'] = $this->load->view('front/users/changeEmail', $this->data, TRUE);
 		//$this->load->view('front/wrapper', $this->data);
-                 $this->load->view('forgotpassword', $this->data);
+                $this->data['content']='forgotpassword';
+                $this->data['radio']=isset($_GET['radio'])?$_GET['radio']:'none';
+                $this->load->view('wrapper', $this->data);
                 
 	}
         

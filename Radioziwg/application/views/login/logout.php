@@ -2,11 +2,16 @@
 <div class="row">
 <div class="span3">
                     <nav class="main">
+                        <?php echo form_open('users/logout'); ?>
                         <h2>Zalogowany</h2>
                             <p>Zalogowany jako:</p>
-                            <p>Imię Nazwisko</p></br>          
-                            <p><button class="btn btn-primary" data-toggle="button" id="loginItems">Wyloguj</button> </p>
-                            <p><a href="">Zmień hasło</a></p>
+                            <p><?php echo $this->session->userdata('username');?></p></br> 
+                            
+                             <p><button class="btn btn-primary" data-toggle="button" id="loginItems">Wyloguj</button> </p>
+                             <?php echo form_close(); ?>
+                            <p><a href="<?php echo render_url('changepass',''); ?>">Zmień hasło</a></p>
+                            <p><a href="<?php echo render_url('changemail',''); ?>">Zmień adres</a></p>
+                            <?php echo $this->session->flashdata('info');?>
                     </nav>
                     <aside class="aside-bg">
                         <h3 class="nagl">Przydatne linki</h3>
