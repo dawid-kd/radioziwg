@@ -18,7 +18,7 @@
                             <li><a href="#">Radia</a></li>
                             <li><a href="#">Utwory</a></li>
                             <li><a href="#">Ankiety</a></li>
-                            <li><a href="#">Użytkownicy</a></li>
+                            <li><a href="<?php echo base_url('admin/users_showAll'); ?>">Użytkownicy</a></li>
                             <li><a href="#">Głosowania</a></li>
     			</ul>
 		</li>
