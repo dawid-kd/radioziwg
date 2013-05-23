@@ -1,80 +1,63 @@
 <div class="span9">
 <div id="content-center">
-<form class="form-horizontal">
+<?php echo form_open('users/register'); ?>
+    
         <fieldset>
-          <legend>Rejestracja nowego u¿ytkownika</legend>
+          <legend>Rejestracja nowego uÅ¼ytkownika</legend>
           <div class="control-group">
-            <label class="control-label" for="input01">Imiê</label>
+            <label class="control-label" for="login">Login</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" id="input01">
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="input01">Nazwisko</label>
-            <div class="controls">
-              <input type="text" class="input-xlarge" id="input01">
-            </div>
-          </div>
-            <div class="control-group">
-            <label class="control-label" for="input01">Login</label>
-            <div class="controls">
-              <input type="text" class="input-xlarge" id="input01">
-            </div>
-          </div>
-            <div class="control-group">
-            <label class="control-label" for="input01">Has³o</label>
-            <div class="controls">
-              <input type="text" class="input-xlarge" id="input01">
-              <p class="help-block">Has³o musi zawieraæ co najmniej 6 znaków</p>
+                <?php echo form_error('login'); ?>
+              <input type="text" class="input-xlarge" id="login" name="login">
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="input01">Adres Email</label>
+            <label class="control-label" for="email1">Adres email</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" id="input01">
+                <?php echo form_error('email1'); ?>
+              <input type="text" class="input-xlarge" id="email1" name="email1">
             </div>
           </div>
             <div class="control-group">
-            <label class="control-label" for="input01">Dodatkowy adres email</label>
+            <label class="control-label" for="password">HasÅ‚o</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" id="input01">
-              <p class="help-block">Dodatkowy adres email pozwoli w razie problemów zidentyfikowaæ u¿ytkownika</p>
+                <?php echo form_error('password'); ?>
+              <input type="password" class="input-xlarge" id="password" name="password">
             </div>
           </div>
             <div class="control-group">
-            <label class="control-label" for="input01">Adres</label>
+            <label class="control-label" for="password1">PowtÃ³rz hasÅ‚o</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" id="input01">
+                <?php echo form_error('password1'); ?>
+              <input type="password" class="input-xlarge" id="password1" name="password1">
+            </div>
+          </div>
+            <div class="control-group">
+            <label class="control-label" for="user_name">ImiÄ™</label>
+            <div class="controls">
+                <?php echo form_error('user_name'); ?>
+              <input type="text" class="input-xlarge" id="user_name" name="user_name">
             </div>
             </div>
           <div class="control-group">
-            <label class="control-label" for="input01">Kod pocztowy</label>
+            <label class="control-label" for="user_surname">Nazwisko</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" id="input01">
-            </div>
-          </div>
-            <div class="control-group">
-            <label class="control-label" for="input01">Miasto</label>
-            <div class="controls">
-              <input type="text" class="input-xlarge" id="Text1">
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="input01">Numer telefonu</label>
-            <div class="controls">
-              <input type="text" class="input-xlarge" id="Text2">
+                <?php echo form_error('user_surname'); ?>
+              <input type="text" class="input-xlarge" id="user_surname" name="user_surname">
             </div>
           </div>
           <div>
             <label class="checkbox">
-             <input type="checkbox"> Zaakceptuj regulamin, aby ukoñczyæ rejestracjê nowego u¿ytkownika
+                <?php echo form_error('rulesConfirm'); ?>
+             <input type="checkbox" name="rulesConfirm"> Zaakceptuj regulamin, aby zakoÅ„czyÄ‡ rejestracjÄ™
             </label>
           </div>
           <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Save changes</button>
-            <button class="btn">Cancel</button>
+              
+            <button type="submit" class="btn btn-primary">Rejestracja</button>
           </div>
         </fieldset>
-</form>
+
+    <?php //echo form_close(); ?>
 </div>
 </div>

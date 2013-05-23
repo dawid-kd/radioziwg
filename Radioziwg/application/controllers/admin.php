@@ -46,15 +46,13 @@ class Admin extends CI_Controller
     public function users_showAll()
     {
         
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/users/showAll';
-        
-        $data['aMenu'] = $this->aMenu;
+        $data['content']    = 'userslist';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         
         # get all register users
         $data['aUsers'] = $this->Usersmodel->getAll();
         
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
         
     }
     
@@ -65,10 +63,8 @@ class Admin extends CI_Controller
             redirect('admin/users_showAll');
         }
         
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/users/edit';
-        
-        $data['aMenu'] = $this->aMenu;
+        $data['content']    = 'edituser';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         $data['sMsg'] = false;
         
         # get user by id. if false -> redirect to base location
@@ -138,20 +134,19 @@ class Admin extends CI_Controller
                 }
                 # update user data
                 $this->Usersmodel->setData($aData);
-                
+                $data['aUser'] = $this->Usersmodel->getOne($iId);
                 $data['sMsg'] = 'Changes saved';
             }
         }
         
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
         
     }
     
     public function users_delete()
     {
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/users/delete';
-        
+        $data['content']    = 'deleteuser';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         $data['aMenu'] = $this->aMenu;
         
         if ($this->input->post('id')) {
@@ -163,7 +158,86 @@ class Admin extends CI_Controller
             $data['sMsg'] = '<p class="text-error">Error</p>';
         }
         
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
+    }
+    
+    public function users_add()
+    {
+        
+        $data['content']    = 'adduser';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
+        $data['sMsg'] = false;
+        
+       
+        # If form is submitted
+        if ($this->input->post('bProceed')) {
+            # set rules for form validation class
+            $aFormConfig = array(
+                array(
+                    'field' => 'user_name',
+                    'label' => 'First name',
+                    'rules' => 'trim|xss_clean|required'
+                ),
+                array(
+                    'field' => 'user_surname',
+                    'label' => 'Surname',
+                    'rules' => 'trim|xss_clean'
+                ),array(
+                    'field' => 'login',
+                    'label' => 'Login',
+                    'rules' => 'trim|xss_clean|required'
+                ),array(
+                    'field' => 'password',
+                    'label' => 'Password',
+                    'rules' => 'trim|xss_clean|required'
+                ),array(
+                    'field' => 'email1',
+                    'label' => 'E-mail',
+                    'rules' => 'trim|xss_clean|required'
+                ),array(
+                    'field' => 'email2',
+                    'label' => 'E-mail 2',
+                    'rules' => 'trim|xss_clean'
+                ),array(
+                    'field' => 'street',
+                    'label' => 'Street',
+                    'rules' => 'trim|xss_clean'
+                ),array(
+                    'field' => 'post_code',
+                    'label' => 'Postcode',
+                    'rules' => 'trim|xss_clean'
+                ),array(
+                    'field' => 'city',
+                    'label' => 'City',
+                    'rules' => 'trim|xss_clean'
+                ),array(
+                    'field' => 'phone_number',
+                    'label' => 'Phone',
+                    'rules' => 'trim|xss_clean'
+                ),array(
+                    'field' => 'user_type',
+                    'label' => 'user_type',
+                    'rules' => 'trim|xss_clean|required'
+                )
+            );
+
+            $this->form_validation->set_rules($aFormConfig);
+            
+            if ($this->form_validation->run()) {
+                # get all data from form fields
+                $aCols = $this->Musicmodel->getColumns('user');
+                $aData = array();
+                foreach ($aCols as $sCol) {
+                    $aData[$sCol] = $this->input->post($sCol);
+                }
+                # update user data
+                $this->Usersmodel->setData($aData);
+                redirect('admin/users_showAll');
+            }
+        }
+        
+        $this->load->view('wrapper', $data);
+        
     }
     
     public function albums_showAll()
