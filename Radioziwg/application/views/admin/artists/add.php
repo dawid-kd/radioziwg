@@ -1,6 +1,6 @@
 <h3>Add</h3>
 
-<?php echo form_open(base_url().'admin/artists_add'); ?>
+<?php echo form_open(render_url('admin/artists_add','')); ?>
 
 <h5>Artist name</h5>
 <?php echo form_error('artist_name'); ?>

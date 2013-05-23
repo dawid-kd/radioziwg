@@ -37,7 +37,7 @@ class Admin extends CI_Controller
         
         $data['aMenu'] = $this->aMenu;
         
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
     }
     
     /*
@@ -491,15 +491,14 @@ class Admin extends CI_Controller
     public function artists_showAll()
     {
         
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/artists/showAll';
-        
+        $data['content']    = 'artistlist';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         $data['aMenu'] = $this->aMenu;
         
         # get all register songs
         $data['aList'] = $this->Musicmodel->getAll('artist');
         
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
         
     }
     
@@ -510,9 +509,8 @@ class Admin extends CI_Controller
             redirect(render_url('admin/artists_showAll',''));
         }
         
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/artists/edit';
-        
+        $data['content']    = 'editartist';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         $data['aMenu'] = $this->aMenu;
         $data['sMsg'] = false;
         
@@ -557,14 +555,13 @@ class Admin extends CI_Controller
             }
         }
         
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
     }
     
     public function artists_delete()
     {
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/artists/delete';
-        
+        $data['content']    = 'deleteartist';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         $data['aMenu'] = $this->aMenu;
         
         if ($this->input->post('id')) {
@@ -576,14 +573,13 @@ class Admin extends CI_Controller
             $data['sMsg'] = '<p class="text-error">Error</p>';
         }
         
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
     }
     
     public function artists_add()
     {
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/artists/add';
-        
+        $data['content']    = 'addartist';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         $data['aMenu'] = $this->aMenu;
         $data['sMsg'] = false;
         
@@ -621,21 +617,21 @@ class Admin extends CI_Controller
             }
         }
         
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
     }
     
     public function radio_showAll()
     {
         $data['sModuleName'] = 'radio';
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/'.$data['sModuleName'].'/showAll';
+        $data['content']    = 'radiolist';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         
         $data['aMenu'] = $this->aMenu;
         
         # get all register songs
         $data['aList'] = $this->Musicmodel->radio_getAll($data['sModuleName']);
         
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
         
     }
     
@@ -643,12 +639,12 @@ class Admin extends CI_Controller
     {
         # redirect to base location if ID < 0
         if (!$iId || $iId < 0) {
-            redirect(render_url('admin/songs_showAll',''));
+            redirect(render_url('admin/radio_showAll',''));
         }
         
         $data['sModuleName'] = 'radio';
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/'.$data['sModuleName'].'/edit';
+        $data['content']    = 'editradio';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         
         $data['aMenu'] = $this->aMenu;
         $data['sMsg'] = false;
@@ -692,14 +688,14 @@ class Admin extends CI_Controller
             }
         }
         
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
     }
     
     public function radio_delete()
     {
         $data['sModuleName'] = 'radio';
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/'.$data['sModuleName'].'/delete';
+        $data['content']    = 'deleteradio';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         
         $data['aMenu'] = $this->aMenu;
         
@@ -712,14 +708,14 @@ class Admin extends CI_Controller
             $data['sMsg'] = '<p class="text-error">Error</p>';
         }
         
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
     }
     
     public function radio_add()
     {
         $data['sModuleName'] = 'radio';
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/'.$data['sModuleName'].'/add';
+        $data['content']    = 'addradio';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         
         $data['aMenu'] = $this->aMenu;
         $data['sMsg'] = false;
@@ -757,7 +753,7 @@ class Admin extends CI_Controller
             }
         }
         
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
     }
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public function compet_answers($competition_id){

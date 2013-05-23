@@ -2,25 +2,39 @@
                 <div class="row row-ext ">
                     <div class="span8 span8-ext bgblue2">
                       <div class="surveysPadding">
+                          <?php echo form_open(render_url('admin/'.$sModuleName.'_add','')); ?>
                           <article>                             
                              <p class="nagl">Dodawanie radia</p>
                               <div class ="surveysPadding">
-                               <p>Nazwa radia</p>
-                               <input type="text" name="data" maxlength="255" placeholder="Radio" style="width:250px" />
-                              <div class="buttonaddadmin">
-                                 <button class="btn btn-primary" data-toggle="button" id="Button7">Dodaj gatunek</button>
-                             </div>
-                              <p class="nagl">Gatunki radia</p>
-                              <select class="span2">
-                                  <option>Rock</option>
-                                  <option>Metal</option>
-                                  <option>Klasyka</option>
-                              </select>
-                              <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">Dodaj radio</button>
+                                    <p>Nazwa radia</p>
+                                    <?php echo form_error($sModuleName.'_name'); ?>
+                                    <input type="text" name="<?php echo $sModuleName ?>_name" value="" size="50" />
+
+                                    <div class="buttonaddadmin">
+                                      <button type="button" class="btn btn-primary" id="addGenre">Dodaj gatunek</button>
+                                    </div>
+
+                                    <div id="genreList">
+                                        <p class="nagl">Gatunki radia</p>
+                                        <div id="genreSelect">
+                                            <select name="aGenreIds[]">
+                                                <?php foreach ($aGenres as $aOneGenre) : ?>
+                                                <option value="<?php echo $aOneGenre['id'] ?>"><?php echo $aOneGenre['name_genre'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-actions">
+                                        <input type="hidden" name="bProceed" value="1" />
+                                        <button type="submit" class="btn btn-primary">Dodaj radio</button>
+                                    </div>
+                              
                               </div>
-                              </div>
-                          </article>                     
+                          </article> 
+                        </form>
                       </div>
                       </div> 
                 </div>                

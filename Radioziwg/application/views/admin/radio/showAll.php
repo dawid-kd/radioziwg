@@ -1,5 +1,5 @@
     <h3 class="pushLeft"><?php echo ucfirst($sModuleName) ?> list</h3>
-    <a href="<?php echo base_url().'admin/'.$sModuleName.'_add' ?>" class="pushRight btn">add new record</a>
+    <a href="<?php echo render_url('admin/'.$sModuleName.'_add',''); ?>" class="pushRight btn">add new record</a>
 
     <table class="table table-hover">
         <thead>

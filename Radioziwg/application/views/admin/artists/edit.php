@@ -4,7 +4,7 @@
 <h4 class="text-success"><?php echo $sMsg ?></h4>
 <?php endif; ?>
 
-<?php echo form_open(base_url().'admin/artists_edit/'.$aOne['id']); ?>
+<?php echo form_open(render_url('admin/artists_edit/'.$aOne['id'],'')); ?>
 
 <h5>Artist name</h5>
 <?php echo form_error('artist_name'); ?>

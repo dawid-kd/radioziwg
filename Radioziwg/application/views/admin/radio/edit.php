@@ -4,7 +4,7 @@
 <h4 class="text-success"><?php echo $sMsg ?></h4>
 <?php endif; ?>
 
-<?php echo form_open(base_url().'admin/'.$sModuleName.'_edit/'.$aOne['id']); ?>
+<?php echo form_open(render_url('admin/'.$sModuleName.'_edit/'.$aOne['id'],'')); ?>
 
 <h5><?php echo ucfirst($sModuleName) ?> name</h5>
 <?php echo form_error($sModuleName.'_name'); ?>

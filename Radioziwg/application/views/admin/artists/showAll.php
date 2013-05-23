@@ -1,5 +1,5 @@
     <h3 class="pushLeft">Artist list</h3>
-    <a href="<?php echo base_url().'admin/artists_add' ?>" class="pushRight btn">add new record</a>
+    <a href="<?php echo render_url('admin/artists_add','') ?>" class="pushRight btn">add new record</a>
 
     <table class="table table-hover">
         <thead>

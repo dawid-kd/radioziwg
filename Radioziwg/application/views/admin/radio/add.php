@@ -1,6 +1,6 @@
 <h3>Add</h3>
 
-<?php echo form_open(base_url().'admin/'.$sModuleName.'_add'); ?>
+<?php echo form_open(render_url('admin/'.$sModuleName.'_add','')); ?>
 
 <h5><?php echo ucfirst($sModuleName) ?> name</h5>
 <?php echo form_error($sModuleName.'_name'); ?>
