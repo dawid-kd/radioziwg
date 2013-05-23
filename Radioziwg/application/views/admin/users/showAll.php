@@ -24,7 +24,7 @@
                 <td><?php echo $aOneUser['street'] ?></td>
                 <td><?php echo $aOneUser['post_code'] ?></td>
                 <td><?php echo $aOneUser['city'] ?></td>
-                <td><a class="btn" href="<?php echo base_url().'admin/users_edit/'.$aOneUser['id'] ?>">Edytuj</a></td>
+                <td><a class="btn" href="<?php echo render_url('admin/users_edit/'.$aOneUser['id'],''); ?>">Edytuj</a></td>
                 <td>
                     <form class="deleteRecord" action="<?php echo base_url().'admin/users_delete' ?>" method="post">
                         <input type="hidden" name="id" value="<?php echo $aOneUser['id'] ?>" />

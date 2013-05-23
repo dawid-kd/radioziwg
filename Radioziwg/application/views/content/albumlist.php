@@ -5,7 +5,7 @@
                           <article>                             
                              <p class="nagl">Lista albumów</p>
                               <div class="buttonaddadmin">
-                                 <a href="<?php echo base_url().'admin/albums_add' ?>"><button class="btn btn-success" data-toggle="button" id="Button7">Dodaj nowy album</button></a>
+                                 <a href="<?php echo render_url('admin/albums_add',''); ?>"><button class="btn btn-success" data-toggle="button" id="Button7">Dodaj nowy album</button></a>
                              </div>
                               <table class="table">
                                 <thead>
@@ -21,9 +21,9 @@
                                     <tr>
                                         <td><?php echo $aOne['id'] ?></td>
                                         <td><?php echo $aOne['album_name'] ?></td>
-                                        <td><a class="btn btn-warning" href="<?php echo base_url().'admin/albums_edit/'.$aOne['id'] ?>">Edytuj</a></td>
+                                        <td><a class="btn btn-warning" href="<?php echo render_url('admin/albums_edit/'.$aOne['id'],''); ?>">Edytuj</a></td>
                                         <td>
-                                            <form class="deleteRecord" action="<?php echo base_url().'admin/albums_delete' ?>" method="post">
+                                            <form class="deleteRecord" action="<?php echo render_url('admin/albums_delete',''); ?>" method="post">
                                                 <input type="hidden" name="id" value="<?php echo $aOne['id'] ?>" />
                                                 <input class="btn btn-danger" type="submit" name="delete" value="Usuń" />
                                             </form>

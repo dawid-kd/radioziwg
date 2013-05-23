@@ -3,7 +3,7 @@
                     <div class="span8 span8-ext bgblue2">
                       <div class="surveysPadding">
                           <article>
-                                <?php echo form_open(base_url().'admin/users_edit/'.$aUser['id']); ?>
+                                <?php echo form_open(render_url('admin/users_edit/'.$aUser['id'],'')); ?>
                                     <p class="nagl">Edytowanie użytkownika</p>
                                     <?php if ($sMsg) : ?>
                                     <h4 class="text-success"><?php echo $sMsg ?></h4>

@@ -5,7 +5,7 @@
                           <article>                             
                              <p class="nagl">Lista użytkowników</p>
                               <div class="buttonaddadmin">
-                                 <a href="<?php echo base_url().'admin/users_add' ?>"><button class="btn btn-success" data-toggle="button" id="Button7">Dodaj nowego użytkownika</button></a>
+                                 <a href="<?php echo render_url('admin/users_add',''); ?>"><button class="btn btn-success" data-toggle="button" id="Button7">Dodaj nowego użytkownika</button></a>
                              </div>
                               <table class="table">
                                 <thead>
@@ -25,9 +25,9 @@
                                         <td><?php echo $aOneUser['user_name'] ?></td>
                                         <td class="fullwidth"> <?php echo $aOneUser['user_surname'] ?></td>
                                         <td><?php echo $aOneUser['email1'] ?></td>
-                                        <td><a class="btn btn-warning" href="<?php echo base_url().'admin/users_edit/'.$aOneUser['id'] ?>">Edytuj</a></td>
+                                        <td><a class="btn btn-warning" href="<?php echo render_url('admin/users_edit/'.$aOneUser['id'],''); ?>">Edytuj</a></td>
                                         <td>
-                                            <form class="deleteRecord" action="<?php echo base_url().'admin/users_delete' ?>" method="post">
+                                            <form class="deleteRecord" action="<?php echo render_url('admin/users_delete',''); ?>" method="post">
                                                 <input type="hidden" name="id" value="<?php echo $aOneUser['id'] ?>" />
                                                 <input class="btn btn-danger" type="submit" name="delete" value="Delete" />
                                             </form>

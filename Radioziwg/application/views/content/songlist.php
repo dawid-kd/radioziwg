@@ -5,12 +5,12 @@
                           <article>                             
                              <p class="nagl">Lista utworów</p>
                               <div class="buttonaddadmin">
-                                 <a href="addsong.html"><button class="btn btn-success" data-toggle="button" id="Button7">Dodaj nowy utwór</button></a>
+                                 <a href="<?php echo render_url('admin/songs_add',''); ?>"><button class="btn btn-success" data-toggle="button" id="Button7">Dodaj nowy utwór</button></a>
                              </div>
                               <table class="table">
                                 <thead>
                                   <tr>
-                                    <th>L.p.</th>
+                                    <th>ID</th>
                                     <th>Nazwa utworu</th>
                                     <th>Album</th>
                                     <th>Wykonawca</th>
@@ -19,30 +19,21 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>1</td>
-                                    <td>Around the World</td>
-                                    <td>Californication</td>
-                                    <td>Red Hot Chili Peppers</td>
-                                    <td><a href="editsong.html"><button class="btn btn-warning" data-toggle="button" id="Button1">Edytuj</button></a></td>
-                                    <td><button class="btn btn-danger" data-toggle="button" id="Button2">Usuń</button></td>
-                                  </tr>
-                                  <tr>
-                                   <td>1</td>
-                                    <td>Californication</td>
-                                    <td>Californication</td>
-                                    <td>Red Hot Chili Peppers</td>
-                                    <td><a href="editsong.html"><button class="btn btn-warning" data-toggle="button" id="Button3">Edytuj</button></a></td>
-                                    <td><button class="btn btn-danger" data-toggle="button" id="Button4">Usuń</button></td>
-                                  </tr>
-                                  <tr>
-                                    <td>2</td>
-                                    <td>One more time</td>
-                                    <td>Daft Punk</td>
-                                    <td>Daft Punk</td>
-                                    <td><a href="editsong.html"><button class="btn btn-warning" data-toggle="button" id="Button5">Edytuj</button></a></td>
-                                    <td><button class="btn btn-danger" data-toggle="button" id="Button6">Usuń</button></td>
-                                  </tr>
+                                    <?php foreach ($aList as $aOne) : ?>
+                                    <tr>
+                                        <td><?php echo $aOne['id'] ?></td>
+                                        <td><?php echo $aOne['song_name'] ?></td>
+                                        <td><?php echo $aOne['album_name'] ?></td>
+                                        <td><?php echo $aOne['artist_name'] ?></td>
+                                        <td><a class="btn btn-warning" href="<?php echo render_url('admin/songs_edit/'.$aOne['id'],''); ?>">Edytuj</a></td>
+                                        <td>
+                                            <form class="deleteRecord" action="<?php echo render_url('admin/songs_delete',''); ?>" method="post">
+                                                <input type="hidden" name="id" value="<?php echo $aOne['id'] ?>" />
+                                                <input class="btn btn-danger" type="submit" name="delete" value="Usuń" />
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                               </table> 
                           </article>                     

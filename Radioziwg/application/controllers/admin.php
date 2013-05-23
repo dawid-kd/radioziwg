@@ -60,7 +60,7 @@ class Admin extends CI_Controller
     {
         # redirect to base location if ID < 0
         if (!$iId || $iId < 0) {
-            redirect('admin/users_showAll');
+            redirect(render_url('admin/users_showAll',''));
         }
         
         $data['content']    = 'edituser';
@@ -69,7 +69,7 @@ class Admin extends CI_Controller
         
         # get user by id. if false -> redirect to base location
         if (! $data['aUser'] = $this->Usersmodel->getOne($iId)) {
-            redirect('admin/users_showAll');
+            redirect(render_url('admin/users_showAll',''));
         }
         
         # If form is submitted
@@ -232,7 +232,7 @@ class Admin extends CI_Controller
                 }
                 # update user data
                 $this->Usersmodel->setData($aData);
-                redirect('admin/users_showAll');
+                redirect(render_url('admin/users_showAll',''));
             }
         }
         
@@ -256,7 +256,7 @@ class Admin extends CI_Controller
     {
         # redirect to base location if ID < 0
         if (!$iId || $iId < 0) {
-            redirect('admin/albums_showAll');
+            redirect(render_url('admin/albums_showAll',''));
         }
         
         $data['content']    = 'editalbum';
@@ -266,7 +266,7 @@ class Admin extends CI_Controller
         
         # get record by id. if false -> redirect to base location
         if (! $data['aOne'] = $this->Musicmodel->getOne('album',$iId)) {
-            redirect('admin/albums_showAll');
+            redirect(render_url('admin/albums_showAll',''));
         }
         
         # If form is submitted
@@ -347,7 +347,7 @@ class Admin extends CI_Controller
                 # update user data
                 $this->Musicmodel->setData('album',$aData);
                 
-                redirect('admin/albums_showAll');
+                redirect(render_url('admin/albums_showAll',''));
             }
         }
         
@@ -357,15 +357,14 @@ class Admin extends CI_Controller
     public function songs_showAll()
     {
         
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/songs/showAll';
-        
+        $data['content']    = 'songlist';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         $data['aMenu'] = $this->aMenu;
         
         # get all register songs
         $data['aList'] = $this->Musicmodel->songs_getAll();
         
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
         
     }
     
@@ -373,18 +372,18 @@ class Admin extends CI_Controller
     {
         # redirect to base location if ID < 0
         if (!$iId || $iId < 0) {
-            redirect('admin/songs_showAll');
+            redirect(render_url('admin/songs_showAll',''));
         }
         
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/songs/edit';
+        $data['content']    = 'editsong';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         
         $data['aMenu'] = $this->aMenu;
         $data['sMsg'] = false;
         
         # get record by id. if false -> redirect to base location
         if (! $data['aOne'] = $this->Musicmodel->songs_getOne($iId)) {
-            redirect('admin/songs_showAll');
+            redirect(render_url('admin/songs_showAll',''));
         }
         
         $data['aAlbums'] = $this->Musicmodel->getAll('album');
@@ -423,14 +422,13 @@ class Admin extends CI_Controller
             }
         }
         
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
     }
     
     public function songs_delete()
     {
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/songs/delete';
-        
+        $data['content']    = 'deletesong';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         $data['aMenu'] = $this->aMenu;
         
         if ($this->input->post('id')) {
@@ -442,14 +440,13 @@ class Admin extends CI_Controller
             $data['sMsg'] = '<p class="text-error">Error</p>';
         }
         
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
     }
     
     public function songs_add()
     {
-        $data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/songs/add';
-        
+        $data['content']    = 'addsong';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         $data['aMenu'] = $this->aMenu;
         $data['sMsg'] = false;
         
@@ -484,11 +481,11 @@ class Admin extends CI_Controller
                 $this->Musicmodel->songs_setData($aData,$this->input->post('aGenreIds'));
                 
                 # get updated record
-                redirect('admin/songs_showAll');
+                redirect(render_url('admin/songs_showAll',''));
             }
         }
         
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
     }
     
     public function artists_showAll()
@@ -510,7 +507,7 @@ class Admin extends CI_Controller
     {
         # redirect to base location if ID < 0
         if (!$iId || $iId < 0) {
-            redirect('admin/artists_showAll');
+            redirect(render_url('admin/artists_showAll',''));
         }
         
         $data['mainContent'] = 'admin/index';
@@ -521,7 +518,7 @@ class Admin extends CI_Controller
         
         # get record by id. if false -> redirect to base location
         if (! $data['aOne'] = $this->Musicmodel->getOne('artist',$iId)) {
-            redirect('admin/artists_showAll');
+            redirect(render_url('admin/artists_showAll',''));
         }
         
         # If form is submitted
@@ -620,7 +617,7 @@ class Admin extends CI_Controller
                 # update user data
                 $this->Musicmodel->setData('artist',$aData);
                 
-                redirect('admin/artists_showAll');
+                redirect(render_url('admin/artists_showAll',''));
             }
         }
         
@@ -646,7 +643,7 @@ class Admin extends CI_Controller
     {
         # redirect to base location if ID < 0
         if (!$iId || $iId < 0) {
-            redirect('admin/songs_showAll');
+            redirect(render_url('admin/songs_showAll',''));
         }
         
         $data['sModuleName'] = 'radio';
@@ -658,7 +655,7 @@ class Admin extends CI_Controller
         
         # get record by id. if false -> redirect to base location
         if (! $data['aOne'] = $this->Musicmodel->radio_getOne($iId)) {
-            redirect('admin/'.$data['sModuleName'].'_showAll');
+            redirect(render_url('admin/'.$data['sModuleName'].'_showAll',''));
         }
         
         $data['aGenres'] = $this->Musicmodel->getAll('music_genre');
@@ -756,7 +753,7 @@ class Admin extends CI_Controller
                 $this->Musicmodel->radio_setData($aData,$this->input->post('aGenreIds'));
                 
                 # get updated record
-                redirect('admin/'.$data['sModuleName'].'_showAll');
+                redirect(render_url('admin/'.$data['sModuleName'].'_showAll',''));
             }
         }
         

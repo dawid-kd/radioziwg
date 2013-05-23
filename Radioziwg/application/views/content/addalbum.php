@@ -3,7 +3,7 @@
                     <div class="span8 span8-ext bgblue2">
                       <div class="surveysPadding">
                           <article>    
-                            <form action="<?php echo base_url().'admin/albums_add/'?>" method="post">
+                            <form action="<?php echo render_url('admin/albums_add/',''); ?>" method="post">
                                 <p class="nagl">Dodawanie albumu</p>
                                 <div class ="surveysPadding">
                                     <p>Nazwa albumu</p>

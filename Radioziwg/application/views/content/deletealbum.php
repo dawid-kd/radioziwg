@@ -4,7 +4,7 @@
                       <div class="surveysPadding">
                           <article>    
                             <?php echo $sMsg ?>
-                            <a href="<?php echo base_url().'admin/albums_showAll'?>" class="btn">Go back</a>
+                            <a href="<?php echo render_url('admin/albums_showAll',''); ?>" class="btn">Go back</a>
                           </article>                     
                       </div>
                       </div> 
