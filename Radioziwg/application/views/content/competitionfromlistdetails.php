@@ -5,7 +5,9 @@
                           <article>                             
                              <p class="nagl">Lista konkursów</p>
                               <div class="buttonaddadmin">
-                                 <a href="competitionlistall.html"><button class="btn btn-info" data-toggle="button" id="Button3">Pokaż wszystkie</button></a>
+                                 <a href="<?php echo base_url().'admin/show_all_compet'; ?>">
+									<button class="btn btn-info" data-toggle="button" id="Button3">Pokaż wszystkie</button>
+								</a>
                              </div>
                               <table class="table">
                                 <thead>
@@ -19,21 +21,25 @@
                                 </thead>
                                 <tbody>
                                   <tr>
-                                    <td>1</td>
-                                    <td>U2 w Polsce</td>
-                                    <td>Opis Opis Opis Opis</td>
-                                    <td>2013-01-01</td>
-                                    <td>2013-02-01</td>
+                                    <td><?php echo $Competition['id'] ?></td>
+                                    <td><?php echo $Competition['competition_name'] ?></td>
+                                    <td><?php echo $Competition['description'] ?></td>
+                                    <td><?php echo $Competition['start_date'] ?></td>
+            						<td><?php echo $Competition['end_date'] ?></td>
                                     <td></td>
                                   </tr>
                                   <tr>
-                                      <td colspan="5"><p>Pytanie: </p>Dlaczego chciałbyś U2 w Polsce?</td>
+                                      <td class="fullwidth" colspan="5"><p>Pytanie: </p><?php echo $Competition['question'] ?></td>
                                   </tr>
                                   <tr>
                                     <td colspan="5" class="buttonsalign">
                                     <input type="checkbox">
-                                    <a href="editcompetition.html"><button class="btn btn-warning" data-toggle="button" id="Button1">Edytuj</button></a>
-                                    <button class="btn btn-danger" data-toggle="button" id="Button2">Usuń</button></td>
+                                    <a href="<?php echo base_url().'admin/compet_edit/'.$Competition['id'] ?>">
+										<button class="btn btn-warning" data-toggle="button" id="Button1">Edytuj</button>
+									</a>
+									<a href="<?php echo base_url().'admin/compet_delete/'.$Competition['id'] ?>">
+										<button class="btn btn-danger" data-toggle="button" id="Button2">Usuń</button>
+									</a>
                                   </tr>                                                                      
                                 </tbody>
                               </table>
@@ -47,14 +53,16 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>sdifhsjdfsjdfhshfkjsdhfjsfjhsdgfjhsdgfhsdgfsdgfhsd</td>
-                                    <td><button class="btn btn-danger" data-toggle="button" id="Button5">Usuń</button></td>
-                                  </tr>
-                                  <tr>
-                                    <td>sdifhsjdfsjdfhshfkjsdhfjsfjhsdgfjhsdgfhsdgfsdgfhsd</td>
-                                    <td><button class="btn btn-danger" data-toggle="button" id="Button6">Usuń</button></td>
-                                  </tr>                                                                    
+                                	<?php foreach ($Answers as $Key) : ?>                                	
+	                                  <tr>
+	                                    <td><?php echo $Key['answer'] ?></td>
+	                                    <td>
+	                                    	<a href="<?php echo base_url().'admin/answer_delete/'.$Key['id'] ?>">
+	                                    		<button class="btn btn-danger" data-toggle="button" id="Button5">Usuń</button>
+	                                    	</a>
+	                                    </td>
+	                                  </tr>
+                                	<?php endforeach; ?>                                   
                                 </tbody>
 
                               </table>                               

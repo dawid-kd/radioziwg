@@ -690,39 +690,38 @@ class Admin extends CI_Controller
     }
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public function compet_answers($competition_id){
-    	$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/competition/showAnswers';
-        $data['aMenu'] = $this->aMenu;
-        $data['Competition'] = $this->Competition_model->getOneCompetition($competition_id);
+		$data['Competition'] = $this->Competition_model->getOneCompetition($competition_id);
 		$result = $this->Answer_model->getAnswers($competition_id);
 		$answers = array();
 		foreach ($result as $key) {			
 			$user = $this->Usersmodel->getOne($key['id']);
 			$answers[] = array('id' => $key['id'] , 'answer' => $key['answer'] ,'user' => $user['login']);
 		}	
-		$data['Answers'] = $answers;		
-        $this->load->view('templates/main', $data);     
+		$data['Answers'] = $answers;
+        $data['content']    = 'competitionfromlistdetails';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none'; 
+		$this->session->set_flashdata('id_compet', $competition_id);       
+        $this->load->view('wrapper', $data);   
     }	
+	public function answer_delete($id){
+		$this->Answer_model->delAnswer($id);
+		redirect(base_url().'admin/compet_answers/'.$this->session->flashdata('id_compet'));
+	}
 	public function show_active_compet(){
-    	$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/competition/showAll';
-        $data['aMenu'] = $this->aMenu;
-		$data['Active'] = 0;
-        $data['Competitions'] = $this->Competition_model->getActiveCompetition();
-        $this->load->view('templates/main', $data);     
+		$data['ACompetitions'] = $this->Competition_model->getActiveCompetition();
+        $data['content']    = 'competitionlist';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';        
+        $this->load->view('wrapper', $data);
     }
 	public function show_all_compet(){
-		$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/competition/showAll';
-        $data['aMenu'] = $this->aMenu;
-		$data['Active'] = 1;
-        $data['Competitions'] = $this->Competition_model->getAllCompetitions();
-        $this->load->view('templates/main', $data);
+		$data['Competitions'] = $this->Competition_model->getAllCompetitions();        
+        $data['content']    = 'competitionlistall';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';        
+        $this->load->view('wrapper', $data);
 	}
     public function compet_edit($id){
-		$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/competition/edit';
-        $data['aMenu'] = $this->aMenu;
+		$data['content']    = 'editcompetition';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
 		$data['Competition'] = $this->Competition_model->getOneCompetition($id);
 		$data['sMsg'] = false;
 		if ($this->input->post('bProceed')) {
@@ -747,35 +746,34 @@ class Admin extends CI_Controller
                     'field' => 'question',
                     'label' => 'Pytanie konkursowe',
                     'rules' => 'trim|xss_clean|required'
-                ),array(
-                    'field' => 'current',
-                    'label' => 'Aktywne',
-                    'rules' => 'trim|xss_clean'
                 )
             );
 			$this->form_validation->set_rules($aFormConfig);            
             if ($this->form_validation->run()) {
-                $aData = array();
-                foreach ($data['Competition'] as $Key => $val) {
-                    $aData[$Key] = $this->input->post($Key);
-                }
+                $tmp;
+            	if($this->input->post('current')!="T"){$tmp="N";}
+				else{$tmp="T";};
+                $aData = array(
+					'competition_name' => $this->input->post('competition_name'),
+					'description' => $this->input->post('description'),
+					'start_date' => $this->input->post('start_date'),
+					'end_date' => $this->input->post('end_date'),
+					'question' => $this->input->post('question'),
+					'current' => $tmp,
+				);
                 $this->Competition_model->setCompetition($id, $aData);
-                $data['sMsg'] = 'Changes saved';
+                redirect(base_url().'admin/show_all_compet');
             }
         }
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
 	}
 	public function compet_delete($id){
-		$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/competition/showAll';        
-        $data['aMenu'] = $this->aMenu;
 		$this->Competition_model->delCompetition($id);
 		redirect(base_url().'admin/show_all_compet');
 	}
 	public function compet_add(){
-		$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/competition/add';
-        $data['aMenu'] = $this->aMenu;
+        $data['content']    = 'addcompetition';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';		
 		if ($this->input->post('bProceed')) {
             $aFormConfig = array(
                 array(
@@ -798,45 +796,43 @@ class Admin extends CI_Controller
                     'field' => 'question',
                     'label' => 'Pytanie konkursowe',
                     'rules' => 'trim|xss_clean|required'
-                ),array(
-                    'field' => 'current',
-                    'label' => 'Aktywne',
-                    'rules' => 'trim|xss_clean'
                 )
             );
 			$this->form_validation->set_rules($aFormConfig);            
             if ($this->form_validation->run()) {
+            	$tmp;
+            	if($this->input->post('current')!="T"){$tmp="N";}
+				else{$tmp="T";};
                 $aData = array(
 					'competition_name' => $this->input->post('competition_name'),
 					'description' => $this->input->post('description'),
 					'start_date' => $this->input->post('start_date'),
 					'end_date' => $this->input->post('end_date'),
 					'question' => $this->input->post('question'),
-					'current' => $this->input->post('current'),
+					'current' => $tmp,
 				);
                 $this->Competition_model->addCompetition($aData);
                 redirect(base_url().'admin/show_all_compet');
             }
         }
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
 	}
+
 	public function show_all_votes(){
-		$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/vote/showAll';
-        $data['aMenu'] = $this->aMenu;
-        $data['Votes'] = $this->Vote_model->getVotes();
-        $this->load->view('templates/main', $data);
+		$data['Votes'] = $this->Vote_model->getVotes();       
+        $data['content']    = 'voteslist';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';        
+        $this->load->view('wrapper', $data);
 	}
 	public function show_vote_songs($id){
-		$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/vote/showSongs';
-        $data['aMenu'] = $this->aMenu;
+		$data['content']    = 'votesongslist';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
 		$data['Vote'] = $this->Vote_model->getVote($id);
         $data['Songs'] = $this->Song_vote_model->getSongs($id);
 
 		$data['SongsNames'] = $this->Musicmodel->getIdAndSongsNames('song');
 		$this->session->set_flashdata('id_vote', $id);
-		if(isset($_POST['songs']))
+		if(isset($_POST['songs']))//dodawanie utworów do głosowania
 		{
 			$dane = array(
 					'id_vote'					=>$id,
@@ -846,19 +842,15 @@ class Admin extends CI_Controller
 			$this->Song_vote_model->addCounter($dane);
 			redirect(base_url().'admin/show_vote_songs/'.$this->session->flashdata('id_vote'));
 		}
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
 	}
 	public function vote_song_delete($song_id){
-		$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/vote/showSongs';        
-        $data['aMenu'] = $this->aMenu;
 		$this->Song_vote_model->delCounter($song_id);
 		redirect(base_url().'admin/show_vote_songs/'.$this->session->flashdata('id_vote'));
 	}
 	public function vote_add(){
-		$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/vote/add';
-        $data['aMenu'] = $this->aMenu;
+		$data['content']    = 'addvote';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
 		if ($this->input->post('bProceed')) {
             $aFormConfig = array(
                 array(
@@ -882,11 +874,11 @@ class Admin extends CI_Controller
 				redirect(base_url().'admin/show_all_votes');
 				
             }
-		$this->load->view('templates/main', $data);
+		$this->load->view('wrapper', $data);
 	}
 	public function vote_edit($id){
-		$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/vote/edit';
+		$data['content']    = 'editvote';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
         $data['aMenu'] = $this->aMenu;
 		$data['sMsg'] = false;
 		$data['Vote'] = $this->Vote_model->getVote($id);
@@ -909,29 +901,24 @@ class Admin extends CI_Controller
                     $aData[$Key] = $this->input->post($Key);
                 }
                 $this->Vote_model->setVote($id, $aData);
-                $data['sMsg'] = 'Changes saved';
+                redirect(base_url().'admin/show_all_votes');
             }
 		}
-		$this->load->view('templates/main', $data);
+		$this->load->view('wrapper', $data);
 	}
 	public function vote_delete($id){
-		$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/vote/showAll';        
-        $data['aMenu'] = $this->aMenu;
 		$this->Vote_model->delVote($id);
 		redirect(base_url().'admin/show_all_votes');
 	}
 	public function show_all_surveys(){
-		$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/survey/showAll';
-        $data['aMenu'] = $this->aMenu;
-        $data['Surveys'] = $this->Survey_model->getSurveys();
-        $this->load->view('templates/main', $data);
+		$data['Surveys'] = $this->Survey_model->getSurveys();      
+        $data['content']    = 'surveyslist';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';        
+        $this->load->view('wrapper', $data);
 	}
 	public function survey_add(){
-		$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/survey/add';
-        $data['aMenu'] = $this->aMenu;
+		$data['content']    = 'addsurvey';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';   
 		if ($this->input->post('bProceed')) {
             $aFormConfig = array(
                 array(
@@ -942,30 +929,27 @@ class Admin extends CI_Controller
                     'field' => 'question',
                     'label' => 'Pytanie',
                     'rules' => 'trim|xss_clean|reuired'
-                ),array(
-                    'field' => 'current',
-                    'label' => 'Aktywny',
-                    'rules' => 'trim|xss_clean'
                 )
 			);
 			$this->form_validation->set_rules($aFormConfig);            
             if ($this->form_validation->run()) {
+                $tmp;
+            	if($this->input->post('current')!="T"){$tmp="N";}
+				else{$tmp="T";};
                 $aData = array(
-					'survey_name' => $this->input->post('survey_name'),
+					'survey_name' => $this->input->post('survey_name'),					
 					'question' => $this->input->post('question'),
-					'current' => $this->input->post('current'),
+					'current' => $tmp,
 				);
-            }
                 $this->Survey_model->addSurvey($aData);
-				redirect(base_url().'admin/show_all_surveys');
-				
+                redirect(base_url().'admin/show_all_surveys');
             }
-		$this->load->view('templates/main', $data);
+		}
+		$this->load->view('wrapper', $data);
 	}
 	public function survey_edit($id){
-		$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/survey/edit';
-        $data['aMenu'] = $this->aMenu;
+		$data['content']    = 'editsurvey';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';   
 		$data['sMsg'] = false;
 		$data['Survey'] = $this->Survey_model->getSurvey($id);
 		if ($this->input->post('bProceed')) {
@@ -978,35 +962,31 @@ class Admin extends CI_Controller
                     'field' => 'question',
                     'label' => 'Pytanie',
                     'rules' => 'trim|xss_clean|reuired'
-                ),array(
-                    'field' => 'current',
-                    'label' => 'Aktywny',
-                    'rules' => 'trim|xss_clean'
                 )
 			);
 			$this->form_validation->set_rules($aFormConfig);            
             if ($this->form_validation->run()) {
-                $aData = array();
-                foreach ($data['Survey'] as $Key => $val) {
-                    $aData[$Key] = $this->input->post($Key);
-                }
+                $tmp;
+            	if($this->input->post('current')!="T"){$tmp="N";}
+				else{$tmp="T";};
+                $aData = array(
+					'survey_name' => $this->input->post('survey_name'),					
+					'question' => $this->input->post('question'),
+					'current' => $tmp,
+				);
                 $this->Survey_model->setSurvey($id, $aData);
-                $data['sMsg'] = 'Changes saved';
+                redirect(base_url().'admin/show_all_surveys');
             }
 		}
-		$this->load->view('templates/main', $data);
+		$this->load->view('wrapper', $data);
 	}
 	public function survey_delete($id){
-		$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/survey/showAll';        
-        $data['aMenu'] = $this->aMenu;
 		$this->Survey_model->delSurvey($id);
 		redirect(base_url().'admin/show_all_surveys');
 	}
 	public function show_survey_options($id){
-		$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/survey/showOptions';
-        $data['aMenu'] = $this->aMenu;
+		$data['content']    = 'surveylistdetails';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';        
 		$data['Survey'] = $this->Survey_model->getSurvey($id);
 		$data['Options'] = $this->Options_model->getOptions($id);	
 		$this->session->set_flashdata('id_survey', $id);
@@ -1020,19 +1000,15 @@ class Admin extends CI_Controller
 			$this->Options_model->addOptions($dane);
 			redirect(base_url().'admin/show_survey_options/'.$this->session->flashdata('id_survey'));
 		}
-        $this->load->view('templates/main', $data);
+        $this->load->view('wrapper', $data);
 	}
 	public function survey_option_delete($id){
-		$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/survey/showOptions';        
-        $data['aMenu'] = $this->aMenu;
 		$this->Options_model->delOptions($id);
 		redirect(base_url().'admin/show_survey_options/'.$this->session->flashdata('id_survey'));
 	}
 	public function survey_option_edit($id){
-		$data['mainContent'] = 'admin/index';
-        $data['viewContent'] = 'admin/survey/editOption';        
-        $data['aMenu'] = $this->aMenu;
+		$data['content']    = 'editoption';
+        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
 		$data['sMsg'] = false;
 		$data['Survey'] = $this->session->flashdata('id_survey');
 		$data['Option'] = $this->Options_model->getOption($id);
@@ -1042,23 +1018,18 @@ class Admin extends CI_Controller
                     'field' => 'option_name',
                     'label' => 'Nazwa opcji',
                     'rules' => 'trim|xss_clean|required'
-                ),array(
-                    'field' => 'option_count',
-                    'label' => 'Oddane głosy',
-                    'rules' => 'trim|xss_clean|reuired'
                 )
 			);
 			$this->form_validation->set_rules($aFormConfig);            
             if ($this->form_validation->run()) {
-                $aData = array();
-                foreach ($data['Option'] as $Key => $val) {
-                    $aData[$Key] = $this->input->post($Key);
-                }
+                $aData = array('option_name' => $this->input->post('option_name'),
+							);               
                 $this->Options_model->setOptions($id, $aData);
-                $data['sMsg'] = 'Changes saved';
+                redirect(base_url().'admin/show_survey_options/'.$this->input->post('id_survey'));
             }
 		}
-		$this->load->view('templates/main', $data);
+		$this->load->view('wrapper', $data);
+		
 	}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     

@@ -5,44 +5,41 @@
                           <article>                             
                              <p class="nagl">Lista ankiet</p>
                               <div class="buttonaddadmin">
-                                 <a href="addsurvey.html"><button class="btn btn-success" data-toggle="button" id="Button7">Dodaj ankietę</button></a>
+                                 <a href="<?php echo base_url().'admin/survey_add'?>">
+									<button class="btn btn-success" data-toggle="button" id="Button7">Dodaj ankietę</button>
+								</a>
                              </div>
                               <table class="table">
                                 <thead>
                                   <tr>
                                     <th>L.p.</th>
-                                    <th>Nazwa</th>
+                                    <th>Nazwa ankiety</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>1</td>
-                                    <td class="fullwidth">Cena biletu na koncert U2</td>
-                                  </tr>
-                                  <tr>
-                                      <td colspan="5"><p>Pytanie: </p>Ile byłbyś w stanie zapłacić na koncert U2?</td>
-                                  </tr>
-                                  <tr>
-                                    <td colspan="5" class="buttonsalign">
-                                    <input type="checkbox">
-                                    <a href="surveylistdetails.html"><button class="btn btn-info" data-toggle="button" id="Button4">Szczegóły</button></a>
-                                    <a href="editsurvey.html"><button class="btn btn-warning" data-toggle="button" id="Button1">Edytuj</button></a>
-                                    <button class="btn btn-danger" data-toggle="button" id="Button2">Usuń</button></td>
-                                  </tr>
-                                    <tr>
-                                    <td>2</td>
-                                    <td class="fullwidth">Cena biletu na koncert U2</td>
-                                  </tr>
-                                  <tr>
-                                      <td colspan="5"><p>Pytanie: </p>Ile byłbyś w stanie zapłacić na koncert U2?</td>
-                                  </tr>
-                                  <tr>
-                                    <td colspan="5" class="buttonsalign">
-                                    <input type="checkbox">
-                                    <a href="surveylistdetails.html"><button class="btn btn-info" data-toggle="button" id="Button3">Szczegóły</button></a>
-                                    <a href="editsurvey.html"><button class="btn btn-warning" data-toggle="button" id="Button5">Edytuj</button></a>
-                                    <button class="btn btn-danger" data-toggle="button" id="Button6">Usuń</button></td>
-                                  </tr>                                
+	                                <?php foreach ($Surveys as $Key) : ?>	
+										<tr>
+											<td><?php echo $Key['id'] ?></td>
+								            <td class="fullwidth"><?php echo $Key['survey_name'] ?></td>
+										</tr>
+										<tr>
+											<td colspan="5"><p>Pytanie: </p><?php echo $Key['question'] ?></td>
+										</tr>
+										<tr>
+											<td colspan="5" class="buttonsalign">
+												<input type="checkbox">
+												<a href="<?php echo base_url().'admin/show_survey_options/'.$Key['id'] ?>">
+													<button class="btn btn-info" data-toggle="button" id="Button4">Szczegóły</button>
+												</a>
+												<a href="<?php echo base_url().'admin/survey_edit/'.$Key['id'] ?>">
+													<button class="btn btn-warning" data-toggle="button" id="Button1">Edytuj</button>
+												</a>
+												<a href="<?php echo base_url().'admin/survey_delete/'.$Key['id'] ?>">
+													<button class="btn btn-danger" data-toggle="button" id="Button2">Usuń</button>
+												</a>
+											</td>
+										</tr>
+									<?php endforeach; ?>                            
                                 </tbody>
                               </table>                                                           
                           </article>                     

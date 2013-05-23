@@ -2,32 +2,29 @@
                 <div class="row row-ext ">
                     <div class="span8 span8-ext bgblue2">
                       <div class="surveysPadding">
-                          <article>                             
+                          <article>      
+                          	<form action="<?php echo base_url().'admin/survey_add'; ?>" method="post">                       
                              <p class="nagl">Dodawanie ankiety</p>
-                              <div class="control-group">
-                                <label class="control-label" for="input01">Nazwa ankiety</label>
-                                <div class="controls">
-                                  <input type="text" class="input-xlarge" id="input01">
-                                </div>
-                              </div>
-                              
-                                <div class="control-group">
-                                <label class="control-label" for="input01">Pytanie ankiety</label>
-                                <div class="controls">
-                                  <textarea rows="3"></textarea>
-                                </div>
-                              </div>
-                              <div>
-                                <label class="checkbox">
-                                 <input type="checkbox"> Oznacz ankietę jako aktywną, aby użytkownicy mogli brać w niej udział
-                                </label>
-                              </div>
-                              <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">Dodaj ankietę</button>
+                              <label class="control-label" for="a1">Nazwa ankiety</label>
+	                                    <?php echo form_error('survey_name'); ?>
+	                                    <input type="text" name="survey_name" maxlength="255" placeholder="Nazwa" style="width:250px" id="a1"/>
+                                    <label class="control-label" for="a2">Pytanie ankiety</label>
+                                    <div class="control-group">
+                                  	  	<?php echo form_error('question'); ?>                       
+                                    	<textarea rows="3" id="a2" name="question" placeholder="Opis"></textarea>
+                                    </div>
+                                    <label class="checkbox">
+                                 		<input type="checkbox" name="current" value="T" /> Oznacz konkurs jako aktywny, aby użytkownicy mogli brać udział
+                                	</label>
+                                    <div class="form-actions">
+                                        <input type="hidden" name="bProceed" value="1" />
+                                        <input class="btn btn-primary" type="submit" value="Zatwierdź zmiany" />
+                                    </div>
+                             </form>      
+                              </article>
                               </div>
                               </div>
-                              </div>
-                          </article>                     
+                                               
                       </div>
                       </div> 
                 </div>                

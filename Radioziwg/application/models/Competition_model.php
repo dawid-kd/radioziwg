@@ -32,7 +32,7 @@ class Competition_model extends CI_Model {
 	}
 
 	public function getAllCompetitions() {
-		$this->db->order_by('end_date', 'DESC');
+		//$this->db->order_by('end_date', 'DESC');
 		$query = $this -> db -> get($this -> table);
 		return $query -> result_array();
 	}
