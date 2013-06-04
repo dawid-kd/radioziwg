@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
        <!-- <link href="assets/css/bootstrap-responsive.css" rel="stylesheet"> -->
 	<link href=<?php echo base_url('css/twitter-bootstrap/twitter-bootstrap-v2/docs/assets/css/bootstrap.css'); ?> rel="stylesheet" />
- <!--    <link href="twitter-bootstrap/twitter-bootstrap-v2/docs/assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />  -->
+        <link href=<?php echo base_url('css/twitter-bootstrap/twitter-bootstrap-v2/docs/assets/css/bootstrap-responsive.css');?> rel="stylesheet" type="text/css" /> 
         <link rel="stylesheet" href="<?php echo base_url('css/main.css'); ?>" /> 
         
         <script src="/js/vendor/jquery-1.9.1.min.js"></script>
@@ -15,6 +15,8 @@
         <script src="/js/vendor/bootstrap.min.js"></script>
 
         <script src="/js/main.js"></script>
+        <script src="/js/footable.js"></script>
+        <script type="text/javascript">$(function(){$('table').footable();});</script>
         <script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
     </body>
     </head>

@@ -1,13 +1,13 @@
     <h3 class="pushLeft">Artist list</h3>
     <a href="<?php echo render_url('admin/artists_add','') ?>" class="pushRight btn">add new record</a>
 
-    <table class="table table-hover">
+    <table class="table footable">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Artist name</th>
-                <th>Artist surname</th>
-                <th colspan="2">Functions</th>
+                <th data-hide="phone">ID</th>
+                <th data-class="expand">Artist name</th>
+                <th data-hide="phone">Artist surname</th>
+                <th colspan="2" data-hide="phone">Functions</th>
             </tr>
         </thead>
 

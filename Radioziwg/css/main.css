@@ -20,7 +20,7 @@ root,body, container, main, article, section, table {
 body
 {  
     background :url('/images/background.jpg');
-    width: 100%;
+    /*width: 100%;*/
     text-align: center;
    /* margin-left:*/
     line-height: 1;
@@ -28,7 +28,7 @@ body
     color: white;
     font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
 }
-a {
+a, a:hover {
     color:white;
 }
 #containerr{
@@ -58,7 +58,7 @@ header.main {
        /* margin-right:auto;*/
 	width: 958px;
 	padding: 12px 12px 12px 12px;
-        background-color: rgba(92,92,247,0.2);
+        background-color: rgba(23,23,50,0.4);
         border-radius:10px;
 }
 header.main h1 {
@@ -130,11 +130,14 @@ input[type=text],input[type=password], textarea {
 	padding: 4px 8px;
 }
 .fb-register{
-    vertical-align:middle;
+        vertical-align:middle;
 }
-.art-clear {clear:both; list-style: none;}
+.art-clear {
+        clear:both; 
+        list-style: none;
+}
 .content-wrapper{
-    margin:12px 12px 12px 12px;
+        margin:12px 12px 12px 12px;
     /* border:1px solid rgba(92,92,247,0.3);/**/
 }
 nav.main 
@@ -146,13 +149,13 @@ nav.main
    /* margin-right:auto;*/
    /* width: 200px;*/
     padding: 1px 12px 12px 12px;
-    background-color: rgba(92,92,247,0.2);  
+    background-color: rgba(23,23,50,0.4);  
     border-radius:10px;
 }
 nav.main h1{
     margin-top:12px;
     min-height: 26px;
-    background-color: rgba(92,92,247,0.2);  
+    background-color: rgba(23,23,50,0.4);  
     border-radius:10px;
     padding:6px 6px 6px 6px;
     text-align: center;
@@ -167,14 +170,14 @@ nav.main ul{
 nav.main li{
     margin: 2px 1px 1px 2px;
     padding:1px 1px 1px 1px;
-     border-radius:5px;
-       border:1px solid rgba(92,92,247,0.3);
+    border-radius:5px;
+    border:1px solid rgba(92,92,247,0.3);
 }
 
 #content-center{
     margin-bottom: 12px;
     padding:12px 12px 12px 12px;
-    background-color: rgba(92,92,247,0.2);  
+    background-color: rgba(23,23,50,0.4);  
     border-radius:10px;
     text-align: left;
 }
@@ -183,7 +186,7 @@ nav.main li{
     margin-right:0px;
     max-width: 300px;
     padding:12px 12px 12px 12px;
-    background-color: rgba(92,92,247,0.2);  
+    background-color: rgba(23,23,50,0.4);  
     border-radius:10px;
   
 }
@@ -192,13 +195,13 @@ footer {
     clear: both;
     margin-top: 12px;
     margin-bottom: 20px;
-    border: solid 1px rgba(92,92,247,0.1);
+    border: solid 1px rgba(23,23,50,0.4);
     padding:12px 12px 12px 12px;
-    background-color: rgba(92,92,247,0.1);  
+    background-color: rgba(23,23,50,0.4);  
     border-radius:10px;
     font-size: 10px;
 }
-nav.main h2{
+nav.main h2, h3.nagl{
   display: block;
   width: 95%;
   padding: 6px 6px 6px 6px;
@@ -213,8 +216,10 @@ nav.main h2{
 .main-side{
     min-heigh: 500px;
 }
-.span5-ext{ margin-left: 20px;
-padding:6px 6px 6px 6px;}
+.span5-ext{ 
+    margin-left: 20px;
+    padding:6px 6px 6px 6px;
+}
 .span9-ext{
     margin: 0px 0 0 10px;
 }
@@ -229,61 +234,49 @@ span3-ext2{
     padding:12px 12px 12px 12px;
 }
 .bgblue{
-        display: block;
-    
+    display: block;    
     padding-bottom: 12px;
     padding-top: 12px;
-    background-color: rgba(92,92,247,0.2);  
+    background-color: rgba(23,23,50,0.4);  
     border-radius:10px;
 }
 .bgblue2{
-        display: block;
-    
+    display: block;
     padding-bottom: 12px;
     padding-top: 12px;
-    background-color: rgba(250,92,247,0.2);  
+    background-color: rgba(0,0,0,0.3);  
     border-radius:10px;
     background: rgb(20,20,20); /* Old browsers */
-background: -moz-linear-gradient(-45deg, rgba(20,20,20,0.5) 0%, rgba(38,12,56,0.5) 37%, rgba(5,1,61,0.5) 47%, rgba(7,9,25,0.5) 57%, rgba(16,7,79,0.5) 71%, rgba(62,31,84,0.5) 81%, rgba(16,14,20,0.5) 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(20,20,20,0.5)), color-stop(37%,rgba(38,12,56,0.5)), color-stop(47%,rgba(5,1,61,0.5)), color-stop(57%,rgba(7,9,25,0.5)), color-stop(71%,rgba(16,7,79,0.5)), color-stop(81%,rgba(62,31,84,0.5)), color-stop(100%,rgba(16,14,20,0.5))); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(-45deg, rgba(20,20,20,0.5) 0%,rgba(38,12,56,0.5) 37%,rgba(5,1,61,0.5) 47%,rgba(7,9,25,0.5) 57%,rgba(16,7,79,0.5) 71%,rgba(62,31,84,0.5) 81%,rgba(16,14,20,0.5) 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(-45deg, rgba(20,20,20,0.5) 0%,rgba(38,12,56,0.5) 37%,rgba(5,1,61,0.5) 47%,rgba(7,9,25,0.5) 57%,rgba(16,7,79,0.5) 71%,rgba(62,31,84,0.5) 81%,rgba(16,14,20,0.5) 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(-45deg, rgba(20,20,20,0.5) 0%,rgba(38,12,56,0.5) 37%,rgba(5,1,61,0.5) 47%,rgba(7,9,25,0.5) 57%,rgba(16,7,79,0.5) 71%,rgba(62,31,84,0.5) 81%,rgba(16,14,20,0.5) 100%); /* IE10+ */
-background: linear-gradient(135deg, rgba(20,20,20,0.5) 0%,rgba(38,12,56,0.5) 37%,rgba(5,1,61,0.5) 47%,rgba(7,9,25,0.5) 57%,rgba(16,7,79,0.5) 71%,rgba(62,31,84,0.5) 81%,rgba(16,14,20,0.5) 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#141414', endColorstr='#100e14',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    background: -moz-linear-gradient(-45deg, rgba(20,20,20,0.5) 0%, rgba(38,12,56,0.5) 37%, rgba(5,1,61,0.5) 47%, rgba(7,9,25,0.5) 57%, rgba(16,7,79,0.5) 71%, rgba(62,31,84,0.5) 81%, rgba(16,14,20,0.5) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(20,20,20,0.5)), color-stop(37%,rgba(38,12,56,0.5)), color-stop(47%,rgba(5,1,61,0.5)), color-stop(57%,rgba(7,9,25,0.5)), color-stop(71%,rgba(16,7,79,0.5)), color-stop(81%,rgba(62,31,84,0.5)), color-stop(100%,rgba(16,14,20,0.5))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(-45deg, rgba(20,20,20,0.5) 0%,rgba(38,12,56,0.5) 37%,rgba(5,1,61,0.5) 47%,rgba(7,9,25,0.5) 57%,rgba(16,7,79,0.5) 71%,rgba(62,31,84,0.5) 81%,rgba(16,14,20,0.5) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, rgba(20,20,20,0.5) 0%,rgba(38,12,56,0.5) 37%,rgba(5,1,61,0.5) 47%,rgba(7,9,25,0.5) 57%,rgba(16,7,79,0.5) 71%,rgba(62,31,84,0.5) 81%,rgba(16,14,20,0.5) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, rgba(20,20,20,0.5) 0%,rgba(38,12,56,0.5) 37%,rgba(5,1,61,0.5) 47%,rgba(7,9,25,0.5) 57%,rgba(16,7,79,0.5) 71%,rgba(62,31,84,0.5) 81%,rgba(16,14,20,0.5) 100%); /* IE10+ */
+    background: linear-gradient(135deg, rgba(20,20,20,0.5) 0%,rgba(38,12,56,0.5) 37%,rgba(5,1,61,0.5) 47%,rgba(7,9,25,0.5) 57%,rgba(16,7,79,0.5) 71%,rgba(62,31,84,0.5) 81%,rgba(16,14,20,0.5) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#141414', endColorstr='#100e14',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 /***/
 }
 .aside-bg{
     margin-top: 12px;
     padding:10px 10px 10px 10px;
-    background-color: rgba(92,92,247,0.2);  
+    background-color: rgba(23,23,50,0.6);  
     border-radius:10px;
 }
-h3.nagl{
-  display: block;
-  width: 95%;
-  padding: 6px 6px 6px 6px;
-  margin-bottom: 27px;
-  font-size: 22px;
-  line-height: 37px;
-  
-  border: 0;
-  border-bottom: 1px solid #eee;
-}
+
 p.nagl{
-  display: block;
-  width: 95%;
-  padding: 6px 6px 6px 6px;
-  margin-bottom: 27px;
-  font-size: 18px;
-  line-height: 20px;
-  
-  border: 0;
-  border-bottom: 1px solid #eee;
-  
+    display: block;
+    width: 95%;
+    padding: 6px 6px 6px 6px;
+    margin-bottom: 27px;
+    font-size: 18px;
+    line-height: 20px;
+    border: 0;
+    border-bottom: 1px solid #eee;
     text-align: left;
 }
-article{text-align:left;}
+article{
+    text-align:left;
+}
 
 tr.tlo{ /* background-color: rgba(250,92,247,0.2);  */}
 td.logo
@@ -352,4 +345,54 @@ td.buttonsalign
 td.fullwidth 
 {
     width: 100%;
+}
+@media (max-width: 240px) {
+
+    nav.main h2, h3.nagl{
+         font-size : 14px ;
+    }
+td.nazwaradia
+{    
+    width: 90%;
+    vertical-align: middle;
+    text-align: center;
+    
+}
+    td.utwor{
+        visibility: hidden;
+    }
+}
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: rgba(0,0,0,0.3);
+}
+.footable {
+    width: 100%;
+}
+.footable.breakpoint > tbody > tr > td.expand {
+    background: url('/images/plus3.png') no-repeat 5px center;
+    padding-left: 30px;
+}
+
+.footable.breakpoint > tbody > tr.footable-detail-show > td.expand {
+    background: url('/images/minus3.png') no-repeat 5px center;
+}
+
+.footable.breakpoint > tbody > tr.footable-row-detail {
+    background: rgba(0,0,0,0.5);
+}
+
+.footable.breakpoint > tbody > tr:hover:not(.footable-row-detail) {
+    cursor: pointer;
+}
+
+.footable > tbody > tr > td, .footable > thead > tr > th {
+    padding: 10px;
+    text-align: left;
+}
+.footable > tbody img {
+    vertical-align:middle;
+}
+.nav > li > a:hover {
+    text-decoration: none;
+    background-color: rgba(0,0,0,0.5);
 }
