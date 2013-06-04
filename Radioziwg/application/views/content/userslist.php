@@ -7,15 +7,15 @@
                               <div class="buttonaddadmin">
                                  <a href="<?php echo render_url('admin/users_add',''); ?>"><button class="btn btn-success" data-toggle="button" id="Button7">Dodaj nowego użytkownika</button></a>
                              </div>
-                              <table class="table">
+                              <table class="table footable">
                                 <thead>
                                   <tr>
-                                    <th>ID</th>
-                                    <th>Imię</th>
-                                    <th class="fullwidth">Nazwisko</th>
-                                    <th>Email</th>
-                                    <th>Edytowanie</th>
-                                    <th>Usuwanie</th>
+                                    <th data-hide="phone">ID</th>
+                                    <th data-hide="phone">Imię</th>
+                                    <th class="fullwidth" data-hide="expand">Nazwisko</th>
+                                    <th data-hide="phone">Email</th>
+                                    <th data-hide="phone">Edytowanie</th>
+                                    <th data-hide="phone">Usuwanie</th>
                                   </tr>
                                 </thead>
                                 <tbody>

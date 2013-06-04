@@ -11,12 +11,12 @@
 							<button class="btn btn-info" data-toggle="button" id="Button3">Pokaż wszystkie</button>
 						</a>
 	                 </div>				
-					<table class="table">
+					<table class="table footable">
 						<thead>
 							<tr>
-								<th>L.p.</th>
-					            <th>Nazwa głosowania</th>
-					            <th>Opis</th>
+								<th data-hide="phone">L.p.</th>
+					            <th data-hide="expand">Nazwa głosowania</th>
+					            <th data-hide="phone">Opis</th>
 							</tr>
 						</thead>
 						<tbody>

@@ -7,15 +7,15 @@
                               <div class="buttonaddadmin">
                                  <a href="<?php echo render_url('admin/songs_add',''); ?>"><button class="btn btn-success" data-toggle="button" id="Button7">Dodaj nowy utwór</button></a>
                              </div>
-                              <table class="table">
+                              <table class="table footable">
                                 <thead>
                                   <tr>
-                                    <th>ID</th>
-                                    <th>Nazwa utworu</th>
-                                    <th>Album</th>
-                                    <th>Wykonawca</th>
-                                    <th>Edytowanie</th>
-                                    <th>Usuwanie</th>
+                                    <th data-hide="phone">ID</th>
+                                    <th data-hide="expand">Nazwa utworu</th>
+                                    <th data-hide="phone">Album</th>
+                                    <th data-hide="phone">Wykonawca</th>
+                                    <th data-hide="phone">Edytowanie</th>
+                                    <th data-hide="phone">Usuwanie</th>
                                   </tr>
                                 </thead>
                                 <tbody>

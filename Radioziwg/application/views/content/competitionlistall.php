@@ -14,14 +14,14 @@
 							<button class="btn btn-info" data-toggle="button" id="Button3">Pokaż aktywne</button>
 						</a>
 					</div>
-					<table class="table">
+					<table class="table footable">
 						<thead>
 							<tr>
-								<th>L.p.</th>
-								<th>Nazwa</th>
-								<th>Opis</th>
-								<th>Początek</th>
-								<th>Koniec</th>
+								<th data-hide="phone">L.p.</th>
+								<th data-hide="expand">Nazwa</th>
+								<th data-hide="phone">Opis</th>
+								<th data-hide="phone">Początek</th>
+								<th data-hide="phone">Koniec</th>
 							</tr>
 						</thead>
 						<tbody>

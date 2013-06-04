@@ -7,14 +7,14 @@
                               <div class="buttonaddadmin">
                                  <a href="<?php echo render_url('admin/'.$sModuleName.'_add',''); ?>"><button class="btn btn-success" data-toggle="button" id="Button7">Dodaj nowe radio</button></a>
                              </div>
-                              <table class="table">
+                              <table class="table footable">
                                 <thead>
                                   <tr>
-                                    <th>ID</th>
-                                    <th>Nazwa radia</th>
-                                    <th>Gatunek radia</th>
-                                    <th>Edycja radia</th>
-                                    <th>Usuwanie radia</th>
+                                    <th data-hide="phone">ID</th>
+                                    <th data-hide="expand">Nazwa radia</th>
+                                    <th data-hide="phone">Gatunek radia</th>
+                                    <th data-hide="phone">Edycja radia</th>
+                                    <th data-hide="phone">Usuwanie radia</th>
                                   </tr>
                                 </thead>
                                 <tbody>

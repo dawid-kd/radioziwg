@@ -7,14 +7,14 @@
                               <div class="buttonaddadmin">
                                  <a href="<?php echo render_url('admin/artists_add','') ?>"><button class="btn btn-success" data-toggle="button" id="Button7">Dodaj nowego artystę</button></a>
                              </div>
-                              <table class="table">
+                              <table class="table footable">
                                 <thead>
                                   <tr>
-                                    <th>ID</th>
-                                    <th>Nazwa/Imię artysty</th>
-                                    <th>Nazwisko artysty</th>
-                                    <th>Edycja artysty</th>
-                                    <th>Usuwanie artysty</th>
+                                    <th data-hide="phone">ID</th>
+                                    <th data-hide="expand">Nazwa/Imię artysty</th>
+                                    <th data-hide="phone">Nazwisko artysty</th>
+                                    <th data-hide="phone">Edycja artysty</th>
+                                    <th data-hide="phone">Usuwanie artysty</th>
                                   </tr>
                                 </thead>
                                 <tbody>

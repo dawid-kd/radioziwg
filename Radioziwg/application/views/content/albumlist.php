@@ -7,13 +7,13 @@
                               <div class="buttonaddadmin">
                                  <a href="<?php echo render_url('admin/albums_add',''); ?>"><button class="btn btn-success" data-toggle="button" id="Button7">Dodaj nowy album</button></a>
                              </div>
-                              <table class="table">
+                              <table class="table footable">
                                 <thead>
                                   <tr>
-                                    <th>L.p.</th>
-                                    <th>Nazwa albumu</th>
-                                    <th>Edycja albumu</th>
-                                    <th>Usuwanie albumu</th>
+                                    <th data-hide="phone">L.p.</th>
+                                    <th data-hide="expand">Nazwa albumu</th>
+                                    <th data-hide="phone">Edycja albumu</th>
+                                    <th data-hide="phone">Usuwanie albumu</th>
                                   </tr>
                                 </thead>
                                 <tbody>

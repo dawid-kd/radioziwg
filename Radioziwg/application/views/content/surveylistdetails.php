@@ -37,14 +37,14 @@
                                 </tbody>
                               </table> 
                               
-                              <table class="table">
+                              <table class="table footable">
                                 <thead>
                                   <tr>
-                                    <th>L.p.</th>
-                                    <th>Nazwa opcji</th>
-                                    <th>Liczba głosów</th>
-                                    <th>Edytowanie</th>
-                                    <th>Usuwanie</th>
+                                    <th data-hide="phone">L.p.</th>
+                                    <th data-hide="expand">Nazwa opcji</th>
+                                    <th data-hide="phone">Liczba głosów</th>
+                                    <th data-hide="phone">Edytowanie</th>
+                                    <th data-hide="phone">Usuwanie</th>
                                   </tr>
                                 </thead>
                                 <tbody>
