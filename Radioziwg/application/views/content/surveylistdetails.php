@@ -25,7 +25,6 @@
                                   </tr>
                                   <tr>
                                     <td colspan="5" class="buttonsalign">
-                                    <input type="checkbox">
                                     	<a href="<?php echo base_url().'admin/survey_edit/'.$Survey['id'] ?>">
 											<button class="btn btn-warning" data-toggle="button" id="Button1">Edytuj</button>
 										</a>

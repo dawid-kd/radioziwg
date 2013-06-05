@@ -11,6 +11,8 @@ class Users extends CI_Controller
             
 		parent::__construct();
                 $this->load->model('Usersmodel');
+				$this->load->model('Competition_model');///
+				$this->load->model('Answer_model');///
 	}
         public function show(){
             
@@ -314,6 +316,40 @@ public function register()
                 $this->data['radio']=isset($_GET['radio'])?$_GET['radio']:'none';
                 $this->load->view('wrapper', $this->data);
                 
+	}
+
+	public function show_competitions(){
+		$data['ACompetitions'] = $this -> Competition_model -> getActiveCompetition();
+		$data['content'] = 'competition';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
+		$this -> load -> view('wrapper', $data);
+	}
+
+	public function competition_answere($competition_id){
+		$user_id = $this->Usersmodel->getId();
+		$data['Competition'] = $this -> Competition_model -> getOneCompetition($competition_id);
+		$data['content'] = 'competitionanswer';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
+		if($this -> Answer_model -> checkAnswer($user_id, $competition_id)){
+			$data['enable'] = FALSE;
+			$data['answer'] = $this -> Answer_model -> getAnswer($user_id, $competition_id);
+		}else{
+			$data['enable'] = TRUE;
+		}
+		
+		$this -> session -> set_flashdata('competition_id', $competition_id);
+		if ($this -> input -> post('bProceed')) {
+			$aFormConfig = array(array('field' => 'answer', 'label' => 'Twoja odpowiedź', 'rules' => 'trim|xss_clean'),);
+			$this -> form_validation -> set_rules($aFormConfig);
+			if ($this -> form_validation -> run()) {
+				$aData = array('answer' => $this -> input -> post('answer'), 
+								'id_user' => $user_id, 
+								'id_competition' => $this -> session -> flashdata('competition_id'));
+				$this -> Answer_model -> addAnswer($aData);
+				redirect(base_url() . 'users/competition_answere/'.$this -> session -> flashdata('competition_id'));
+			}
+		}
+		$this -> load -> view('wrapper', $data);
 	}
         
        

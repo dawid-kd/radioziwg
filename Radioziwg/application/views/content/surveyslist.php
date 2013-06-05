@@ -27,7 +27,6 @@
 										</tr>
 										<tr>
 											<td colspan="5" class="buttonsalign">
-												<input type="checkbox">
 												<a href="<?php echo base_url().'admin/show_survey_options/'.$Key['id'] ?>">
 													<button class="btn btn-info" data-toggle="button" id="Button4">Szczegóły</button>
 												</a>
@@ -47,5 +46,3 @@
                       </div> 
                 </div>                
             </div>
-            </div>
-       </div>
