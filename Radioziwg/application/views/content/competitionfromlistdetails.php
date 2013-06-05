@@ -3,7 +3,7 @@
                     <div class="span8 span8-ext bgblue2">
                       <div class="surveysPadding">
                           <article>                             
-                             <p class="nagl">Lista konkursów</p>
+                             <p class="nagl">Szczegóły konkursu</p>
                               <div class="buttonaddadmin">
                                  <a href="<?php echo base_url().'admin/show_all_compet'; ?>">
 									<button class="btn btn-info" data-toggle="button" id="Button3">Pokaż wszystkie</button>
@@ -33,7 +33,6 @@
                                   </tr>
                                   <tr>
                                     <td colspan="5" class="buttonsalign">
-                                    <input type="checkbox">
                                     <a href="<?php echo base_url().'admin/compet_edit/'.$Competition['id'] ?>">
 										<button class="btn btn-warning" data-toggle="button" id="Button1">Edytuj</button>
 									</a>
@@ -44,26 +43,45 @@
                                 </tbody>
                               </table>
                              
+                             <form action="<?php echo base_url().'admin/compet_answers/'.$Competition['id']; ?>" method="post">                     
+                             <p class="nagl">Odpowiedzi</p>
                               <table class="table">
 
                                 <thead>
                                   <tr>
                                     <th>Odpowiedzi użytkowników</th>
-                                    <th>Usuwanie</th>
+                                    <th>Przyznaj<br />nagrodę</th>
+                                    <th>Usuwanie</th>                                    
                                   </tr>
                                 </thead>
+                               
                                 <tbody>
                                 	<?php foreach ($Answers as $Key) : ?>                                	
 	                                  <tr>
 	                                    <td><?php echo $Key['answer'] ?></td>
 	                                    <td>
+	                                    	<label class="checkbox">
+		                                 		<input type="checkbox" name="user<?php echo $Key['user_id']; ?>" value="1" />
+		                                	</label>
+	                                    </td>
+	                                    <td>
 	                                    	<a href="<?php echo base_url().'admin/answer_delete/'.$Key['id'] ?>">
 	                                    		<button class="btn btn-danger" data-toggle="button" id="Button5">Usuń</button>
 	                                    	</a>
-	                                    </td>
+	                                    </td>	                                    
 	                                  </tr>
-                                	<?php endforeach; ?>                                   
+                                	<?php endforeach; ?>
+                                	<tr>
+                                    	<td colspan="5" class="fullwidth" >		                                  
+												<div>
+			                                    	<input type="hidden" name="id" value="<?php echo $Competition['id'] ?>" />
+			                                        <input type="hidden" name="bProceed" value="1" />
+			                                        <input class="btn btn-warning" type="submit" value="Pokaż zwycięzców" />
+			                                    </div>	
+										</td>								
+                                  </tr>                                  
                                 </tbody>
+                                </form>
 
                               </table>                               
                                
@@ -72,5 +90,3 @@
                       </div> 
                 </div>                
             </div>
-            </div>
-       </div>

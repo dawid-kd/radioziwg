@@ -756,349 +756,280 @@ class Admin extends CI_Controller
         $this->load->view('wrapper', $data);
     }
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public function compet_answers($competition_id){
-		$data['Competition'] = $this->Competition_model->getOneCompetition($competition_id);
-		$result = $this->Answer_model->getAnswers($competition_id);
+	public function compet_answers($competition_id) {
+		$data['Competition'] = $this -> Competition_model -> getOneCompetition($competition_id);
+		$result = $this -> Answer_model -> getAnswers($competition_id);
 		$answers = array();
-		foreach ($result as $key) {			
-			$user = $this->Usersmodel->getOne($key['id']);
-			$answers[] = array('id' => $key['id'] , 'answer' => $key['answer'] ,'user' => $user['login']);
-		}	
+		foreach ($result as $key) {
+			$user = $this -> Usersmodel -> getOne($key['id_user']);
+			$answers[] = array('id' => $key['id'], 'answer' => $key['answer'], 'user' => $user['login'], 'user_id' => $user['id']);
+		}
+		shuffle($answers);
 		$data['Answers'] = $answers;
-        $data['content']    = 'competitionfromlistdetails';
-        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none'; 
-		$this->session->set_flashdata('id_compet', $competition_id);       
-        $this->load->view('wrapper', $data);   
-    }	
-	public function answer_delete($id){
-		$this->Answer_model->delAnswer($id);
-		redirect(base_url().'admin/compet_answers/'.$this->session->flashdata('id_compet'));
-	}
-	public function show_active_compet(){
-		$data['ACompetitions'] = $this->Competition_model->getActiveCompetition();
-        $data['content']    = 'competitionlist';
-        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';        
-        $this->load->view('wrapper', $data);
-    }
-	public function show_all_compet(){
-		$data['Competitions'] = $this->Competition_model->getAllCompetitions();        
-        $data['content']    = 'competitionlistall';
-        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';        
-        $this->load->view('wrapper', $data);
-	}
-    public function compet_edit($id){
-		$data['content']    = 'editcompetition';
-        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
-		$data['Competition'] = $this->Competition_model->getOneCompetition($id);
-		$data['sMsg'] = false;
-		if ($this->input->post('bProceed')) {
-            $aFormConfig = array(
-                array(
-                    'field' => 'competition_name',
-                    'label' => 'Nazwa konkursu',
-                    'rules' => 'trim|xss_clean|required'
-                ),array(
-                    'field' => 'description',
-                    'label' => 'Opis',
-                    'rules' => 'trim|xss_clean'
-                ),array(
-                    'field' => 'start_date',
-                    'label' => 'Początek konkursu',
-                    'rules' => 'trim|xss_clean'
-                ),array(
-                    'field' => 'end_date',
-                    'label' => 'Koniec konkursu',
-                    'rules' => 'trim|xss_clean'
-                ),array(
-                    'field' => 'question',
-                    'label' => 'Pytanie konkursowe',
-                    'rules' => 'trim|xss_clean|required'
-                )
-            );
-			$this->form_validation->set_rules($aFormConfig);            
-            if ($this->form_validation->run()) {
-                $tmp;
-            	if($this->input->post('current')!="T"){$tmp="N";}
-				else{$tmp="T";};
-                $aData = array(
-					'competition_name' => $this->input->post('competition_name'),
-					'description' => $this->input->post('description'),
-					'start_date' => $this->input->post('start_date'),
-					'end_date' => $this->input->post('end_date'),
-					'question' => $this->input->post('question'),
-					'current' => $tmp,
-				);
-                $this->Competition_model->setCompetition($id, $aData);
-                redirect(base_url().'admin/show_all_compet');
-            }
-        }
-        $this->load->view('wrapper', $data);
-	}
-	public function compet_delete($id){
-		$this->Competition_model->delCompetition($id);
-		redirect(base_url().'admin/show_all_compet');
-	}
-	public function compet_add(){
-        $data['content']    = 'addcompetition';
-        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';		
-		if ($this->input->post('bProceed')) {
-            $aFormConfig = array(
-                array(
-                    'field' => 'competition_name',
-                    'label' => 'Nazwa konkursu',
-                    'rules' => 'trim|xss_clean|required'
-                ),array(
-                    'field' => 'description',
-                    'label' => 'Opis',
-                    'rules' => 'trim|xss_clean'
-                ),array(
-                    'field' => 'start_date',
-                    'label' => 'Początek konkursu',
-                    'rules' => 'trim|xss_clean'
-                ),array(
-                    'field' => 'end_date',
-                    'label' => 'Koniec konkursu',
-                    'rules' => 'trim|xss_clean'
-                ),array(
-                    'field' => 'question',
-                    'label' => 'Pytanie konkursowe',
-                    'rules' => 'trim|xss_clean|required'
-                )
-            );
-			$this->form_validation->set_rules($aFormConfig);            
-            if ($this->form_validation->run()) {
-            	$tmp;
-            	if($this->input->post('current')!="T"){$tmp="N";}
-				else{$tmp="T";};
-                $aData = array(
-					'competition_name' => $this->input->post('competition_name'),
-					'description' => $this->input->post('description'),
-					'start_date' => $this->input->post('start_date'),
-					'end_date' => $this->input->post('end_date'),
-					'question' => $this->input->post('question'),
-					'current' => $tmp,
-				);
-                $this->Competition_model->addCompetition($aData);
-                redirect(base_url().'admin/show_all_compet');
-            }
-        }
-        $this->load->view('wrapper', $data);
+		$data['content'] = 'competitionfromlistdetails';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
+		$this -> session -> set_flashdata('id_compet', $competition_id);
+		$winners = array();
+		////////////////////////////////////////////////////////////////
+		if ($this -> input -> post('bProceed')) {
+			$users = $this -> Usersmodel -> getAll();
+			foreach ($users as $key) {
+				if ($this -> input -> post('user' . $key['id']) == 1) {
+					$winners[] = $key;
+				}
+			}//spr czy sa zwyc
+			$data['content'] = 'competitionwinners';
+			$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
+			$data['Winners'] = $winners;
+			//w nast post
+			//$this->load->library('email');
+		}
+		if ($this -> input -> post('cProceed')) {
+			$this -> load -> library('email');
+			foreach ($winners as $key) {
+				$this -> send_mail_to_winner($key['email1'], $data['Competition']['question'], $data['Competition']['competition_name']);
+			}
+			//redirect(base_url() . 'admin/show_all_compet');
+		}
+		///////////////////////////////////////////////////////////////
+		$this -> load -> view('wrapper', $data);
 	}
 
-	public function show_all_votes(){
-		$data['Votes'] = $this->Vote_model->getVotes();       
-        $data['content']    = 'voteslist';
-        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';        
-        $this->load->view('wrapper', $data);
+	public function send_mail_to_winner($mail, $question, $competition_name) {
+		print_r($mail);/*
+		$this -> email -> from('konkurs@radioziwg.pl', 'Radioziwg');
+		$this -> email -> to('pawelbilinski00@gmail.com');
+		$this -> email -> subject('Konkurs Radioziwg');
+		$this -> email -> message('Gratulacje! Opowiadając poprawnie na pytanie: ' . $question . ' zdobyłeś/zdobyłaś jedną z nagród w konkursie ' . $competition_name . '.');
+		$this -> email -> send();*/
 	}
-	public function show_vote_songs($id){
-		$data['content']    = 'votesongslist';
-        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
-		$data['Vote'] = $this->Vote_model->getVote($id);
-        $data['Songs'] = $this->Song_vote_model->getSongs($id);
 
-		$data['SongsNames'] = $this->Musicmodel->getIdAndSongsNames('song');
-		$this->session->set_flashdata('id_vote', $id);
-		if(isset($_POST['songs']))//dodawanie utworów do głosowania
+	public function answer_delete($id) {
+		$this -> Answer_model -> delAnswer($id);
+		redirect(base_url() . 'admin/compet_answers/' . $this -> session -> flashdata('id_compet'));
+	}
+
+	public function show_active_compet() {
+		$data['ACompetitions'] = $this -> Competition_model -> getActiveCompetition();
+		$data['content'] = 'competitionlist';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
+		$this -> load -> view('wrapper', $data);
+	}
+
+	public function show_all_compet() {
+		$data['Competitions'] = $this -> Competition_model -> getAllCompetitions();
+		$data['content'] = 'competitionlistall';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
+		$this -> load -> view('wrapper', $data);
+	}
+
+	public function compet_edit($id) {
+		$data['content'] = 'editcompetition';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
+		$data['Competition'] = $this -> Competition_model -> getOneCompetition($id);
+		$data['sMsg'] = false;
+		if ($this -> input -> post('bProceed')) {
+			$aFormConfig = array( array('field' => 'competition_name', 'label' => 'Nazwa konkursu', 'rules' => 'trim|xss_clean|required'), array('field' => 'description', 'label' => 'Opis', 'rules' => 'trim|xss_clean'), array('field' => 'start_date', 'label' => 'Początek konkursu', 'rules' => 'trim|xss_clean'), array('field' => 'end_date', 'label' => 'Koniec konkursu', 'rules' => 'trim|xss_clean'), array('field' => 'question', 'label' => 'Pytanie konkursowe', 'rules' => 'trim|xss_clean|required'));
+			$this -> form_validation -> set_rules($aFormConfig);
+			if ($this -> form_validation -> run()) {
+				$tmp;
+				if ($this -> input -> post('current') != "T") {$tmp = "N";
+				} else {$tmp = "T";
+				};
+				$aData = array('competition_name' => $this -> input -> post('competition_name'), 'description' => $this -> input -> post('description'), 'start_date' => $this -> input -> post('start_date'), 'end_date' => $this -> input -> post('end_date'), 'question' => $this -> input -> post('question'), 'current' => $tmp, );
+				$this -> Competition_model -> setCompetition($id, $aData);
+				redirect(base_url() . 'admin/show_all_compet');
+			}
+		}
+		$this -> load -> view('wrapper', $data);
+	}
+
+	public function compet_delete($id) {
+		$this -> Competition_model -> delCompetition($id);
+		redirect(base_url() . 'admin/show_all_compet');
+	}
+
+	public function compet_add() {
+		$data['content'] = 'addcompetition';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
+		if ($this -> input -> post('bProceed')) {
+			$aFormConfig = array( array('field' => 'competition_name', 'label' => 'Nazwa konkursu', 'rules' => 'trim|xss_clean|required'), array('field' => 'description', 'label' => 'Opis', 'rules' => 'trim|xss_clean'), array('field' => 'start_date', 'label' => 'Początek konkursu', 'rules' => 'trim|xss_clean'), array('field' => 'end_date', 'label' => 'Koniec konkursu', 'rules' => 'trim|xss_clean'), array('field' => 'question', 'label' => 'Pytanie konkursowe', 'rules' => 'trim|xss_clean|required'));
+			$this -> form_validation -> set_rules($aFormConfig);
+			if ($this -> form_validation -> run()) {
+				$tmp;
+				if ($this -> input -> post('current') != "T") {$tmp = "N";
+				} else {$tmp = "T";
+				};
+				$aData = array('competition_name' => $this -> input -> post('competition_name'), 'description' => $this -> input -> post('description'), 'start_date' => $this -> input -> post('start_date'), 'end_date' => $this -> input -> post('end_date'), 'question' => $this -> input -> post('question'), 'current' => $tmp, );
+				$this -> Competition_model -> addCompetition($aData);
+				redirect(base_url() . 'admin/show_all_compet');
+			}
+		}
+		$this -> load -> view('wrapper', $data);
+	}
+
+	public function show_all_votes() {
+		$data['Votes'] = $this -> Vote_model -> getVotes();
+		$data['content'] = 'voteslist';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
+		$this -> load -> view('wrapper', $data);
+	}
+
+	public function show_vote_songs($id) {
+		$data['content'] = 'votesongslist';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
+		$data['Vote'] = $this -> Vote_model -> getVote($id);
+		$data['Songs'] = $this -> Song_vote_model -> getSongs($id);
+
+		$data['SongsNames'] = $this -> Musicmodel -> getIdAndSongsNames('song');
+		$this -> session -> set_flashdata('id_vote', $id);
+		if (isset($_POST['songs']))//dodawanie utworów do głosowania
 		{
-			$dane = array(
-					'id_vote'					=>$id,
-					'id_song'					=>$this->input->post('songs'),
-					'votes_count'				=>0,
-			);
-			$this->Song_vote_model->addCounter($dane);
-			redirect(base_url().'admin/show_vote_songs/'.$this->session->flashdata('id_vote'));
+			$dane = array('id_vote' => $id, 'id_song' => $this -> input -> post('songs'), 'votes_count' => 0, );
+			$this -> Song_vote_model -> addCounter($dane);
+			redirect(base_url() . 'admin/show_vote_songs/' . $this -> session -> flashdata('id_vote'));
 		}
-        $this->load->view('wrapper', $data);
+		$this -> load -> view('wrapper', $data);
 	}
-	public function vote_song_delete($song_id){
-		$this->Song_vote_model->delCounter($song_id);
-		redirect(base_url().'admin/show_vote_songs/'.$this->session->flashdata('id_vote'));
+
+	public function vote_song_delete($song_id) {
+		$this -> Song_vote_model -> delCounter($song_id);
+		redirect(base_url() . 'admin/show_vote_songs/' . $this -> session -> flashdata('id_vote'));
 	}
-	public function vote_add(){
-		$data['content']    = 'addvote';
-        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
-		if ($this->input->post('bProceed')) {
-            $aFormConfig = array(
-                array(
-                    'field' => 'vote_name',
-                    'label' => 'Nazwa głosowania',
-                    'rules' => 'trim|xss_clean|required'
-                ),array(
-                    'field' => 'description',
-                    'label' => 'Opis',
-                    'rules' => 'trim|xss_clean'
-                )
-			);
-			$this->form_validation->set_rules($aFormConfig);            
-            if ($this->form_validation->run()) {
-                $aData = array(
-					'vote_name' => $this->input->post('vote_name'),
-					'description' => $this->input->post('description'),
-				);
-            }
-                $this->Vote_model->addVote($aData);
-				redirect(base_url().'admin/show_all_votes');
-				
-            }
-		$this->load->view('wrapper', $data);
+
+	public function vote_add() {
+		$data['content'] = 'addvote';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
+		if ($this -> input -> post('bProceed')) {
+			$aFormConfig = array( array('field' => 'vote_name', 'label' => 'Nazwa głosowania', 'rules' => 'trim|xss_clean|required'), array('field' => 'description', 'label' => 'Opis', 'rules' => 'trim|xss_clean'));
+			$this -> form_validation -> set_rules($aFormConfig);
+			if ($this -> form_validation -> run()) {
+				$aData = array('vote_name' => $this -> input -> post('vote_name'), 'description' => $this -> input -> post('description'), );
+			}
+			$this -> Vote_model -> addVote($aData);
+			redirect(base_url() . 'admin/show_all_votes');
+
+		}
+		$this -> load -> view('wrapper', $data);
 	}
-	public function vote_edit($id){
-		$data['content']    = 'editvote';
-        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
-        $data['aMenu'] = $this->aMenu;
+
+	public function vote_edit($id) {
+		$data['content'] = 'editvote';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
+		$data['aMenu'] = $this -> aMenu;
 		$data['sMsg'] = false;
-		$data['Vote'] = $this->Vote_model->getVote($id);
-		if ($this->input->post('bProceed')) {
-            $aFormConfig = array(
-                array(
-                    'field' => 'vote_name',
-                    'label' => 'Nazwa głosowania',
-                    'rules' => 'trim|xss_clean|required'
-                ),array(
-                    'field' => 'description',
-                    'label' => 'Opis',
-                    'rules' => 'trim|xss_clean'
-                )
-			);
-			$this->form_validation->set_rules($aFormConfig);            
-            if ($this->form_validation->run()) {
-                $aData = array();
-                foreach ($data['Vote'] as $Key => $val) {
-                    $aData[$Key] = $this->input->post($Key);
-                }
-                $this->Vote_model->setVote($id, $aData);
-                redirect(base_url().'admin/show_all_votes');
-            }
+		$data['Vote'] = $this -> Vote_model -> getVote($id);
+		if ($this -> input -> post('bProceed')) {
+			$aFormConfig = array( array('field' => 'vote_name', 'label' => 'Nazwa głosowania', 'rules' => 'trim|xss_clean|required'), array('field' => 'description', 'label' => 'Opis', 'rules' => 'trim|xss_clean'));
+			$this -> form_validation -> set_rules($aFormConfig);
+			if ($this -> form_validation -> run()) {
+				$aData = array();
+				foreach ($data['Vote'] as $Key => $val) {
+					$aData[$Key] = $this -> input -> post($Key);
+				}
+				$this -> Vote_model -> setVote($id, $aData);
+				redirect(base_url() . 'admin/show_all_votes');
+			}
 		}
-		$this->load->view('wrapper', $data);
+		$this -> load -> view('wrapper', $data);
 	}
-	public function vote_delete($id){
-		$this->Vote_model->delVote($id);
-		redirect(base_url().'admin/show_all_votes');
+
+	public function vote_delete($id) {
+		$this -> Vote_model -> delVote($id);
+		redirect(base_url() . 'admin/show_all_votes');
 	}
-	public function show_all_surveys(){
-		$data['Surveys'] = $this->Survey_model->getSurveys();      
-        $data['content']    = 'surveyslist';
-        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';        
-        $this->load->view('wrapper', $data);
+
+	public function show_all_surveys() {
+		$data['Surveys'] = $this -> Survey_model -> getSurveys();
+		$data['content'] = 'surveyslist';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
+		$this -> load -> view('wrapper', $data);
 	}
-	public function survey_add(){
-		$data['content']    = 'addsurvey';
-        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';   
-		if ($this->input->post('bProceed')) {
-            $aFormConfig = array(
-                array(
-                    'field' => 'survey_name',
-                    'label' => 'Nazwa ankiety',
-                    'rules' => 'trim|xss_clean|required'
-                ),array(
-                    'field' => 'question',
-                    'label' => 'Pytanie',
-                    'rules' => 'trim|xss_clean|reuired'
-                )
-			);
-			$this->form_validation->set_rules($aFormConfig);            
-            if ($this->form_validation->run()) {
-                $tmp;
-            	if($this->input->post('current')!="T"){$tmp="N";}
-				else{$tmp="T";};
-                $aData = array(
-					'survey_name' => $this->input->post('survey_name'),					
-					'question' => $this->input->post('question'),
-					'current' => $tmp,
-				);
-                $this->Survey_model->addSurvey($aData);
-                redirect(base_url().'admin/show_all_surveys');
-            }
+
+	public function survey_add() {
+		$data['content'] = 'addsurvey';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
+		if ($this -> input -> post('bProceed')) {
+			$aFormConfig = array( array('field' => 'survey_name', 'label' => 'Nazwa ankiety', 'rules' => 'trim|xss_clean|required'), array('field' => 'question', 'label' => 'Pytanie', 'rules' => 'trim|xss_clean|reuired'));
+			$this -> form_validation -> set_rules($aFormConfig);
+			if ($this -> form_validation -> run()) {
+				$tmp;
+				if ($this -> input -> post('current') != "T") {$tmp = "N";
+				} else {$tmp = "T";
+				};
+				$aData = array('survey_name' => $this -> input -> post('survey_name'), 'question' => $this -> input -> post('question'), 'current' => $tmp, );
+				$this -> Survey_model -> addSurvey($aData);
+				redirect(base_url() . 'admin/show_all_surveys');
+			}
 		}
-		$this->load->view('wrapper', $data);
+		$this -> load -> view('wrapper', $data);
 	}
-	public function survey_edit($id){
-		$data['content']    = 'editsurvey';
-        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';   
+
+	public function survey_edit($id) {
+		$data['content'] = 'editsurvey';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
 		$data['sMsg'] = false;
-		$data['Survey'] = $this->Survey_model->getSurvey($id);
-		if ($this->input->post('bProceed')) {
-            $aFormConfig = array(
-                array(
-                    'field' => 'survey_name',
-                    'label' => 'Nazwa ankiety',
-                    'rules' => 'trim|xss_clean|required'
-                ),array(
-                    'field' => 'question',
-                    'label' => 'Pytanie',
-                    'rules' => 'trim|xss_clean|reuired'
-                )
-			);
-			$this->form_validation->set_rules($aFormConfig);            
-            if ($this->form_validation->run()) {
-                $tmp;
-            	if($this->input->post('current')!="T"){$tmp="N";}
-				else{$tmp="T";};
-                $aData = array(
-					'survey_name' => $this->input->post('survey_name'),					
-					'question' => $this->input->post('question'),
-					'current' => $tmp,
-				);
-                $this->Survey_model->setSurvey($id, $aData);
-                redirect(base_url().'admin/show_all_surveys');
-            }
+		$data['Survey'] = $this -> Survey_model -> getSurvey($id);
+		if ($this -> input -> post('bProceed')) {
+			$aFormConfig = array( array('field' => 'survey_name', 'label' => 'Nazwa ankiety', 'rules' => 'trim|xss_clean|required'), array('field' => 'question', 'label' => 'Pytanie', 'rules' => 'trim|xss_clean|reuired'));
+			$this -> form_validation -> set_rules($aFormConfig);
+			if ($this -> form_validation -> run()) {
+				$tmp;
+				if ($this -> input -> post('current') != "T") {$tmp = "N";
+				} else {$tmp = "T";
+				};
+				$aData = array('survey_name' => $this -> input -> post('survey_name'), 'question' => $this -> input -> post('question'), 'current' => $tmp, );
+				$this -> Survey_model -> setSurvey($id, $aData);
+				redirect(base_url() . 'admin/show_all_surveys');
+			}
 		}
-		$this->load->view('wrapper', $data);
+		$this -> load -> view('wrapper', $data);
 	}
-	public function survey_delete($id){
-		$this->Survey_model->delSurvey($id);
-		redirect(base_url().'admin/show_all_surveys');
+
+	public function survey_delete($id) {
+		$this -> Survey_model -> delSurvey($id);
+		redirect(base_url() . 'admin/show_all_surveys');
 	}
-	public function show_survey_options($id){
-		$data['content']    = 'surveylistdetails';
-        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';        
-		$data['Survey'] = $this->Survey_model->getSurvey($id);
-		$data['Options'] = $this->Options_model->getOptions($id);	
-		$this->session->set_flashdata('id_survey', $id);
-		if(isset($_POST['option_name']))
-		{
-			$dane = array(
-					'id_survey'					=>$id,
-					'option_name'				=>$this->input->post('option_name'),
-					'option_count'				=>0,
-			);
-			$this->Options_model->addOptions($dane);
-			redirect(base_url().'admin/show_survey_options/'.$this->session->flashdata('id_survey'));
+
+	public function show_survey_options($id) {
+		$data['content'] = 'surveylistdetails';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
+		$data['Survey'] = $this -> Survey_model -> getSurvey($id);
+		$data['Options'] = $this -> Options_model -> getOptions($id);
+		$this -> session -> set_flashdata('id_survey', $id);
+		if (isset($_POST['option_name'])) {
+			$dane = array('id_survey' => $id, 'option_name' => $this -> input -> post('option_name'), 'option_count' => 0, );
+			$this -> Options_model -> addOptions($dane);
+			redirect(base_url() . 'admin/show_survey_options/' . $this -> session -> flashdata('id_survey'));
 		}
-        $this->load->view('wrapper', $data);
+		$this -> load -> view('wrapper', $data);
 	}
-	public function survey_option_delete($id){
-		$this->Options_model->delOptions($id);
-		redirect(base_url().'admin/show_survey_options/'.$this->session->flashdata('id_survey'));
+
+	public function survey_option_delete($id) {
+		$this -> Options_model -> delOptions($id);
+		redirect(base_url() . 'admin/show_survey_options/' . $this -> session -> flashdata('id_survey'));
 	}
-	public function survey_option_edit($id){
-		$data['content']    = 'editoption';
-        $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
+
+	public function survey_option_edit($id) {
+		$data['content'] = 'editoption';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
 		$data['sMsg'] = false;
-		$data['Survey'] = $this->session->flashdata('id_survey');
-		$data['Option'] = $this->Options_model->getOption($id);
-		if ($this->input->post('bProceed')) {
-            $aFormConfig = array(
-                array(
-                    'field' => 'option_name',
-                    'label' => 'Nazwa opcji',
-                    'rules' => 'trim|xss_clean|required'
-                )
-			);
-			$this->form_validation->set_rules($aFormConfig);            
-            if ($this->form_validation->run()) {
-                $aData = array('option_name' => $this->input->post('option_name'),
-							);               
-                $this->Options_model->setOptions($id, $aData);
-                redirect(base_url().'admin/show_survey_options/'.$this->input->post('id_survey'));
-            }
+		$data['Survey'] = $this -> session -> flashdata('id_survey');
+		$data['Option'] = $this -> Options_model -> getOption($id);
+		if ($this -> input -> post('bProceed')) {
+			$aFormConfig = array( array('field' => 'option_name', 'label' => 'Nazwa opcji', 'rules' => 'trim|xss_clean|required'));
+			$this -> form_validation -> set_rules($aFormConfig);
+			if ($this -> form_validation -> run()) {
+				$aData = array('option_name' => $this -> input -> post('option_name'), );
+				$this -> Options_model -> setOptions($id, $aData);
+				redirect(base_url() . 'admin/show_survey_options/' . $this -> input -> post('id_survey'));
+			}
 		}
-		$this->load->view('wrapper', $data);
-		
+		$this -> load -> view('wrapper', $data);
+
 	}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
 }
 

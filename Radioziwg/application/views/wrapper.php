@@ -5,8 +5,8 @@ header('Content-Type: text/html; charset=utf-8');
         $this->load->view('header');
 
         //$this->load->view('navigation/foradmin');
-        if ($this->session->userdata('id') !== FALSE) {
-            if ($this->session->userdata('isAdmin') !== FALSE) {
+        if ($this->session->userdata('id') != FALSE) {
+            if ($this->session->userdata('isAdmin') != FALSE) {
                 $this->load->view('navigation/foradmin');
             }else{
                 $this->load->view('navigation/forusers');
