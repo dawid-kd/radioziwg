@@ -374,7 +374,11 @@ public function register()
 		$this -> load -> view('wrapper', $data);
 	}
 
-	public function show_vote_songs($id) {
+	public function show_vote_songs($id) 
+        {
+            if (!$id) {
+                redirect(base_url() . 'users/show_all_votes');
+            }
 		$data['content'] = 'votesongslist_user';
 		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
 		$data['Vote'] = $this -> Vote_model -> getVote($id);
@@ -402,7 +406,7 @@ public function register()
                         $this -> User_vote_model -> updateUserVote($dane,$data['aUserVote']['id']);
                     }
                     
-                    redirect(base_url() . 'users/show_vote_songs/' . $this -> session -> flashdata('id_vote'));
+                    redirect(base_url() . 'users/show_vote_songs/' . $id);
 		}
 		$this -> load -> view('wrapper', $data);
 	}
