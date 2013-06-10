@@ -11,8 +11,13 @@ class Users extends CI_Controller
             
 		parent::__construct();
                 $this->load->model('Usersmodel');
-				$this->load->model('Competition_model');///
-				$this->load->model('Answer_model');///
+                $this->load->model('Competition_model');///
+                $this->load->model('Answer_model');///
+                $this->load->model('Song_vote_model');
+                $this->load->model('User_vote_model');
+                $this->load->model('Vote_model');
+                $this->load->model('Musicmodel');
+                
 	}
         public function show(){
             
@@ -352,6 +357,55 @@ public function register()
 		$this -> load -> view('wrapper', $data);
 	}
         
+        public function show_toplist()
+        {
+            $data['content']    = 'musiclist';
+            $data['radio']      = isset($_GET['radio'])?$_GET['radio']:'none';
+
+            $data['aList'] = $this->Song_vote_model->getTopList();
+
+            $this->load->view('wrapper', $data);
+        }
+        
+        public function show_all_votes() {
+		$data['Votes'] = $this -> Vote_model -> getVotes();
+		$data['content'] = 'voteslist_user';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
+		$this -> load -> view('wrapper', $data);
+	}
+
+	public function show_vote_songs($id) {
+		$data['content'] = 'votesongslist_user';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
+		$data['Vote'] = $this -> Vote_model -> getVote($id);
+		$data['Songs'] = $this -> Song_vote_model -> getSongs($id);
+
+		$data['SongsNames'] = $this -> Musicmodel -> getIdAndSongsNames('song');
+                
+                # sprawdź czy użytkownik głosował już w danym głosowaniu
+                $data['aUserVote'] = $this -> User_vote_model -> getUserVote($id, $this->session->userdata('id'));
+//                    var_dump($data['aUserVote']);
+//                    exit();
+		$this -> session -> set_flashdata('id_vote', $id);
+                if (isset($_POST['song']))//dodawanie głosów
+		{
+                    if (empty($data['aUserVote'])) {
+                        $dane = array('id_vote' => $id, 
+                                    'id_song' => $this -> input -> post('song'),
+                                    'id_user' => $this->session->userdata('id'));
+                        $this -> User_vote_model -> addUserVote($dane);
+                        
+                    } elseif (isset($_POST['change'])) {
+                        $dane = array('id_vote' => $id, 
+                                    'id_song' => $this -> input -> post('song'),
+                                    'id_user' => $this->session->userdata('id'));
+                        $this -> User_vote_model -> updateUserVote($dane,$data['aUserVote']['id']);
+                    }
+                    
+                    redirect(base_url() . 'users/show_vote_songs/' . $this -> session -> flashdata('id_vote'));
+		}
+		$this -> load -> view('wrapper', $data);
+	}
        
 }
 /*

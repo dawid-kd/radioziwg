@@ -3,24 +3,30 @@
                         <div class="span8 span8-ext bgblue2">
                             <div>
                                 <article>
-                                    <p class="nagl">Lista przeboj�w</p>
-                                    <table>
+                                    <p class="nagl">Lista przebojów </p></p>
+                                    <table class="table footable">
+                                        <thead>
+                                            <tr>
+                                              <th >L.p.</th>
+                                              <th></th>
+                                              <th>Nazwa</th>
+                                              <th >Artysta</th>
+                                              <th >Album</th>
+<!--                                              <th >Głosuj</th>-->
+                                            </tr>
+                                        </thead>
+                                        <?php $i = 1; ?>
+                                        <?php foreach ($aList as $aOne) : ?>
                                         <tr >
-                                            <td class="songLogo"><img src="albumy\around.jpg"/></td>
-                                            <td class="utworList"><h4>Red Hot Chili Peppers</h4><p>Around the world</p></td>
+                                            <td><?php echo $i; ?></td>
+                                            <td class="songLogo"><img src="<?php echo base_url('images/artist/'.$aOne['id_artist'].'.jpg'); ?>" /></td>
+                                            <td><?php echo $aOne['song_name']; ?></td>
+                                            <td><?php echo $aOne['artist_name']; ?></td>
+                                            <td><?php echo $aOne['album_name']; ?></td>
+<!--                                            <td><button class="btn btn-success" >Głosuj</button></td>-->
                                         </tr>
-                                        <tr >
-                                            <td class="songLogo"><img src="albumy\kiler.jpg"/></td>
-                                            <td class="utworList"><h4>Killer</h4><p>Elektryczne gitary</p></td>
-                                        </tr>
-                                        <tr >
-                                            <td class="songLogo"><img src="albumy\halfway.png"/></td>
-                                            <td class="utworList"><h4>Black Eyed Peas</h4><p>Meet me halfway</p></td>
-                                        </tr>
-                                        <tr >
-                                            <td class="songLogo"><img src="albumy\blur.jpg"/></td>
-                                            <td class="utworList"><h4>Blur</h4><p>Song 2</p></td>
-                                        </tr>
+                                        <?php $i++; ?>
+                                        <?php endforeach; ?>
                                     </table>
                                 </article>
                             </div>

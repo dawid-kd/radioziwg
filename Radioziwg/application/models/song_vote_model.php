@@ -34,11 +34,34 @@ class Song_vote_model extends CI_Model {
 
 	}
 
-	public function getSongs($id) {//pioseki w ramach danego glosowania
+	public function getSongs($id, $sort = false) {//pioseki w ramach danego glosowania
 		$this->db->where('id_vote', $id);
+                
+                if ($sort) {
+                    $this->db->order_by($sort, 'desc');
+                }
 		$query = $this -> db -> get($this -> table);
 		return $query -> result_array();
 	}
+        
+        public function getTopList($iVoteId = false)
+        {
+            $this->db->select('id_song');
+            $this->db->select_sum('votes_count');
+            $this->db->select('song.song_name');
+            $this->db->select('song.id_artist');
+            $this->db->select('artist.artist_name');
+            $this->db->select('album.album_name');
+            //$this->db->where('id_vote', $iVoteId);
+            $this->db->join('song', 'song.id = '.$this -> table.'.id_song');
+            $this->db->join('artist', 'artist.id = song.id_artist');
+            $this->db->join('album', 'album.id = song.id_album');
+            $this->db->group_by("id_song"); 
+            $this->db->order_by('votes_count', 'desc');
+            
+            $query = $this -> db -> get($this -> table);
+            return $query -> result_array();
+        }
 
 }
 ?>
