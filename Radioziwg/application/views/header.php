@@ -16,7 +16,7 @@
 	<script src="/js/location/geo-min.js"></script>
         <script src="/js/main.js"></script>
         <script src="/js/footable.js"></script>
-        <script type="text/javascript">$(function(){$('table').footable();});</script>
+        <script type="text/javascript">(function(){$('table').footable();});</script>
         <script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
     </body>
     </head>
