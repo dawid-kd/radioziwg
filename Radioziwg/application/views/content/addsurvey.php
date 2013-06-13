@@ -14,7 +14,7 @@
                                     	<textarea rows="3" id="a2" name="question" placeholder="Opis"></textarea>
                                     </div>
                                     <label class="checkbox">
-                                 		<input type="checkbox" name="current" value="T" /> Oznacz konkurs jako aktywny, aby użytkownicy mogli brać udział
+                                 		<input type="checkbox" name="current" value="T" /> Oznacz ankietę jako aktywną, aby użytkownicy mogli głosować
                                 	</label>
                                     <div class="form-actions">
                                         <input type="hidden" name="bProceed" value="1" />

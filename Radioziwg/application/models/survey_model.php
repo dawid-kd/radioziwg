@@ -25,6 +25,12 @@ class Survey_model extends CI_Model {
 		$query = $this -> db -> get($this -> table);
 		return $query -> row_array();
 	}
+	public function getLastActiveSurvey() {
+		$this -> db -> where('current', 'T');
+		$this -> db -> order_by("id", "desc"); 
+		$query = $this -> db -> get($this -> table);
+		return $query -> row_array();
+	}
 	public function getSurveys() {
 		$query = $this -> db -> get($this -> table);
 		return $query -> result_array();

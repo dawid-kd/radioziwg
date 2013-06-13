@@ -17,6 +17,9 @@ class Users extends CI_Controller
                 $this->load->model('User_vote_model');
                 $this->load->model('Vote_model');
                 $this->load->model('Musicmodel');
+				$this->load->model('Survey_model');
+				$this->load->model('Options_model');
+				$this->load->model('User_option');
                 
 	}
         public function show(){
@@ -330,7 +333,7 @@ public function register()
 		$this -> load -> view('wrapper', $data);
 	}
 
-	public function competition_answere($competition_id){
+	public function competition_answer($competition_id){
 		$user_id = $this->Usersmodel->getId();
 		$data['Competition'] = $this -> Competition_model -> getOneCompetition($competition_id);
 		$data['content'] = 'competitionanswer';
@@ -351,9 +354,43 @@ public function register()
 								'id_user' => $user_id, 
 								'id_competition' => $this -> session -> flashdata('competition_id'));
 				$this -> Answer_model -> addAnswer($aData);
-				redirect(base_url() . 'users/competition_answere/'.$this -> session -> flashdata('competition_id'));
+				redirect(base_url() . 'users/competition_answer/'.$this -> session -> flashdata('competition_id'));
 			}
 		}
+		$this -> load -> view('wrapper', $data);
+	}
+
+	public function show_survey(){
+		$user_id = $this->Usersmodel->getId();
+		$survey = $this -> Survey_model -> getLastActiveSurvey();
+		$data['Survey'] = $survey;
+		$data['Optionn'] = $this -> Options_model -> getOptions($survey['id']);;
+		$data['content'] = 'survey';
+		$data['radio'] = isset($_GET['radio']) ? $_GET['radio'] : 'none';
+		
+		
+		
+		if($this -> User_option -> checkUOption($user_id, $survey['id'])){
+			$data['enable'] = FALSE;
+			$data['Results'] = $this -> Options_model -> getOptions($survey['id']);
+		}else{
+			$data['enable'] = TRUE;
+		}
+		
+		if ($this -> input -> post('bProceed')) {
+
+				$aData = array(	'id_user' => $user_id, 
+								'id_survey' => $survey['id'],
+								'id_option' => $this -> input -> post('optionsRadios'));
+				$this -> User_option -> addUOption($aData);
+				$this -> Options_model -> increaseCounter($aData['id_option']);
+				redirect(base_url() . 'users/show_survey/');
+			
+		}
+		
+		
+		
+		
 		$this -> load -> view('wrapper', $data);
 	}
         

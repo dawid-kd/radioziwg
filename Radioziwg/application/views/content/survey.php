@@ -1,38 +1,67 @@
 <div class="span9 bgblue span9-ext">
-                <div class="row row-ext ">
-                        <div class="span8 span8-ext bgblue2">
-                                <article>
-                                    <p class="nagl">Ankiety</p>
-                                    <div class="surveysPadding">
-                                        <h4>Nazwa ankiety</h4>
-                                        <br>
-                                        <h6>Pytanie ankietowe</h6>
-                                        <br>
-                                        <label class="radio">
-                                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                                          Propozycja numer 1
-                                        </label>
-                                        <label class="radio">
-                                          <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                          Propozycja numer 2
-                                        </label>
-                                        <label class="radio">
-                                          <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-                                          Propozycja numer 3
-                                        </label>
-                                        <label class="radio">
-                                          <input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
-                                          Propozycja numer 4
-                                        </label>
-                                        <label class="radio">
-                                          <input type="radio" name="optionsRadios" id="optionsRadios5" value="option5">
-                                          Propozycja numer 5
-                                        </label>
-                                        <div class="form-actions">
-                                        <a href="surveysSent.html"><button type="submit" class="btn btn-primary">Wy�lij ankiet�</button></a>
-                                      </div>
+	<div class="row row-ext ">
+		<div class="span8 span8-ext bgblue2">
+			<div class="surveysPadding">
+				<article>
+					<p class="nagl">Weź udział w ankiecie</p>					
+					<table class="table footable">
+						<tbody>						
+							<tr>
+								<td>
+									<p>Pytanie:</p>
+									<?php echo $Survey['question'];?>
+								</td>
+							</tr>
+							<tr>
+								
+							<?php if($enable):?>								
+								<td><form action="<?php echo base_url().'users/show_survey'; ?>" method="post">
+									<?php foreach ($Optionn as $Opt) : ?>
+										<div class="control-group">
+                                        	<label class="radio">
+		                                    <input type="radio" name="optionsRadios" value="<?php echo $Opt['id']?>" checked>
+                                          		<?php echo $Opt['option_name']?>
+                                        	</label>
+	                                   </div>
+	                            	<?php endforeach; ?>
+                                    <div class="form-actions">
+                                        <input type="hidden" name="bProceed" value="1" />
+                                        <input class="btn btn-warning" type="submit" value="Zagłosuj" />
                                     </div>
-                                </article>
-                        </div>      
-                </div>    
-            </div>
+	                            </form>	  </td>                         
+                            <?php endif; ?>
+                            <?php if(!$enable): ?>
+									<p>Wyniki ankiety</p>
+									
+	                            <table class="table footable">
+	                            <thead>
+                                  <tr>
+                                    <th data-hide="expand">Nazwa opcji</th>
+                                    <th data-hide="phone">Liczba głosów</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <?php foreach ($Results as $Result) : ?>
+							        <tr>
+							            <td><?php echo $Result['option_name'] ?></td>
+										<td><?php echo $Result['option_count'] ?></td>
+							        </tr>
+							       <?php endforeach; ?>                                                                                 
+                                </tbody>
+                                </table>
+	                            
+	                            
+	                            
+	                            
+	                            
+	                            
+                            <?php endif; ?>
+                            
+                            </tr>
+						</tbody>
+					</table>
+				</article>
+			</div>
+		</div>
+	</div>
+</div>

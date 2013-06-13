@@ -17,7 +17,7 @@
                                     	<textarea rows="3" id="a2" name="question" placeholder="Opis"><?php echo set_value('question', $Survey['question']); ?></textarea>
                                     </div>
                                     <label class="checkbox">
-                                 		<input type="checkbox" name="current" value="T" <?php if($Survey['current']=="T"){echo 'checked="checked"';} ?> /> Oznacz konkurs jako aktywny, aby użytkownicy mogli brać udział
+                                 		<input type="checkbox" name="current" value="T" <?php if($Survey['current']=="T"){echo 'checked="checked"';} ?> /> Oznacz ankietę jako aktywną, aby użytkownicy mogli głosować
                                 	</label>
                                     <div class="form-actions">
                                     	<input type="hidden" name="id" value="<?php echo $Survey['id'] ?>" />

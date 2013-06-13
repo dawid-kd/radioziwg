@@ -1,6 +1,6 @@
 <div class="span9 bgblue span9-ext">
 	<div class="row row-ext ">
-		<div class="span5 span5-ext bgblue2">
+		<div class="span8 span8-ext bgblue2">
 			<div class="surveysPadding">
 				<article>
 					<p class="nagl">Weź udział w konkursie</p>					
@@ -15,7 +15,7 @@
 							<tr>
 							<?php if($enable):?>
 								<td>
-									<form action="<?php echo base_url().'users/competition_answere/'.$Competition['id']; ?>" method="post">
+									<form action="<?php echo base_url().'users/competition_answer/'.$Competition['id']; ?>" method="post">
 	                                    <label class="control-label" for="a2">Twoja odpowiedź</label>
 	                                    <div class="control-group">
 	                                  	  	<?php echo form_error('answer'); ?>                       

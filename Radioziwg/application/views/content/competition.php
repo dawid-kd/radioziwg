@@ -1,9 +1,9 @@
 <div class="span9 bgblue span9-ext">
     <div class="row row-ext ">
-        <div class="span5 span5-ext bgblue2">
+        <div class="span8 span8-ext bgblue2">
             <div class="surveysPadding">
                 <article>
-                    <p class="nagl"> Nazwa konkursu</p>
+                    <p class="nagl"> Konkursy</p>
                     <table class="table footable">
 						<thead>
 							<tr>
@@ -32,7 +32,7 @@
 							</tr>
 							<tr>
 								<td colspan="5" class="buttonsalign">
-									<a href="<?php echo base_url().'users/competition_answere/'.$Key['id'] ?>">
+									<a href="<?php echo base_url().'users/competition_answer/'.$Key['id'] ?>">
 										<button class="btn btn-info" data-toggle="button" id="Button4">Odpowiedz na pytanie</button>
 									</a>
 								</td>

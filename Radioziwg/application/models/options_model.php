@@ -30,6 +30,13 @@ class Options_model extends CI_Model {
 		$query = $this -> db -> get($this -> table);
 		return $query -> result_array();
 	}
+	public function increaseCounter($id) {
+		$this -> db -> where('id', $id);
+		$query = $this -> db -> get($this -> table) -> row_array();
+		$query['option_count']++;
+		$this -> db -> where('id', $id);
+		$this -> db -> update($this -> table, $query);
+	}
 
 }
 ?>
